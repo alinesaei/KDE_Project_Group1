@@ -1,16 +1,24 @@
-# This is a sample Python script.
+# app/main.py
+import streamlit as st
 
-# Press ⌃F5 to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+# 1. Page Config: Must be the very first command
+st.set_page_config(
+    page_title="Semantic Pokédex",
+    page_icon="🕸️",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
+# 2. Hero Section
+st.title("🕸️Pokédex")
+st.caption("INFOMKDE Project | Utrecht University")
+st.divider()
+#dummy data stats
+st.subheader("📊 Current Graph Status (dummy data)")
+stat1, stat2, stat3, stat4 = st.columns(4)
+stat1.metric("Total Triples", "15,402")
+stat2.metric("Classes (Ontology)", "48")
+stat3.metric("Linked Entities", "151")
+stat4.metric("Inference Rules", "12")
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press F9 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+st.success("👈 **Start by clicking 'Search Engine' in the sidebar!**")
