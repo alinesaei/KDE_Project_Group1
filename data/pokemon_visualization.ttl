@@ -1,0 +1,765 @@
+@prefix : <http://example.org/pokemon-ontology#> .
+@prefix pk:   <https://pokemonkg.org/instance/pokemon#> .
+
+# Visualizations are based on images from https://pokemon.fandom.com/wiki/Category:Generation_I_Pokémon
+
+pk:bulbasaur
+    :hasAttribute :Flower; 
+    :hasAttribute :Claws; 
+    :hasAttribute :Feet;
+    :hasAttribute :Teeth; 
+    :hasAttribute :Tongue;
+    :hasAttribute :Eyes;
+    :hasAttribute :Ears; 
+    :hasAttribute :Nose;
+    :hasAttribute :BodySymbols;
+    :hasColour dbr:Green.
+
+pk:ivysaur
+    :hasAttribute :Flower; 
+    :hasAttribute :Leaf;
+    :hasAttribute :Feet;
+    :hasAttribute :Claws; 
+    :hasAttribute :Teeth; 
+    :hasAttribute :Eyes;
+    :hasAttribute :Ears;
+    :hasAttribute :Nose;
+    :hasAttribute :BodySymbols; 
+    :hasColour dbr:Green, dbr:Pink.
+
+pk:venusaur
+    :hasAttribute :Flower; 
+    :hasAttribute :Leaf;
+    :hasAttribute :Claws; 
+    :hasAttribute :Feet;
+    :hasAttribute :Teeth; 
+    :hasAttribute :Tongue;
+    :hasAttribute :Eyes;
+    :hasAttribute :Ears;
+    :hasAttribute :Nose;
+    :hasAttribute :BodySymbols; 
+    :hasColour dbr:Green, dbr:Pink, dbr:Brown.
+
+pk:charmander
+    :hasAttribute :Fingers;
+    :hasAttribute :Eyes;
+    :hasAttribute :Teeth;
+    :hasAttribute :Tongue;
+    :hasAttribute :Nose;
+    :hasAttribute :Claws;
+    :hasAttribute :Feet;
+    :hasAttribute :Tail;
+    :hasAttribute :Flame;
+    :hasColour dbr:Orange, dbr:Beige, dbr:Red, dbr:Yellow.
+
+pk:charmeleon
+    :hasAttribute :Nose;
+    :hasAttribute :Eyes;
+    :hasAttribute :Teeth;
+    :hasAttribute :Tongue;
+    :hasAttribute :Horn;
+    :hasAttribute :Fingers;
+    :hasAttribute :Claws;
+    :hasAttribute :Feet;
+    :hasAttribute :Tail;
+    :hasAttribute :Flame;
+    :hasColour dbr:Beige, dbr:Red, dbr:Yellow.
+
+pk:charizard
+    :hasAttribute :Nose;
+    :hasAttribute :Eyes;
+    :hasAttribute :Teeth;
+    :hasAttribute :Tongue;
+    :hasAttribute :Horn;
+    :hasAttribute :Fingers;
+    :hasAttribute :Claws;
+    :hasAttribute :Feet;
+    :hasAttribute :Tail;
+    :hasAttribute :DragonWings;
+    :hasAttribute :Flame;
+    :hasColour dbr:Orange, dbr:Beige, dbr:Red, dbr:Yellow, dbr:Blue.
+
+pk:squirtle
+    :hasAttribute :Nose;
+    :hasAttribute :Eyes;
+    :hasAttribute :Mouth;
+    :hasAttribute :Fingers;
+    :hasAttribute :Feet;
+    :hasAttribute :Tail;
+    :hasAttribute :BodyShell;
+    :hasColour dbr:Blue, dbr:Beige, dbr:Brown.
+
+pk:wartortle
+    :hasAttribute :Nose;
+    :hasAttribute :Eyes;
+    :hasAttribute :Teeth;
+    :hasAttribute :Ears;
+    :hasAttribute :Fingers;
+    :hasAttribute :Feet;
+    :hasAttribute :Tail;
+    :hasAttribute :BodyShell;
+    :hasAttribute :Claws;
+    :hasColour dbr:Blue, dbr:Beige, dbr:Brown, dbr:White.
+
+pk:blastoise
+    :hasAttribute :Nose;
+    :hasAttribute :Eyes;
+    :hasAttribute :Mouth;
+    :hasAttribute :Ears;
+    :hasAttribute :Fingers;
+    :hasAttribute :Feet;
+    :hasAttribute :Tail;
+    :hasAttribute :BodyShell;
+    :hasAttribute :Claws;
+    :hasAttribute :Item;
+    :hasColour dbr:Blue, dbr:Beige, dbr:Brown, dbr:White.
+
+pk:caterpie
+    :hasAttribute :Nose;
+    :hasAttribute :Eyes;
+    :hasAttribute :Antenna;
+    :hasAttribute :Legs;
+    :hasAttribute :Tail;
+    :hasColour dbr:Green, dbr:Yellow, dbr:Orange.
+
+pk:metapod
+    :hasAttribute :Nose;
+    :hasAttribute :Eyes;
+    :hasAttribute :Chrysalis;
+    :hasColour dbr:Green.
+
+pk:butterfree  
+    :hasAttribute :Nose;
+    :hasAttribute :Eyes;
+    :hasAttribute :Teeth;
+    :hasAttribute :Antenna;
+    :hasAttribute :Fingers;
+    :hasAttribute :Feet;
+    :hasAttribute :BugWings;
+    :hasColour dbr:Purple, dbr:Blue, dbr:White, dbr:Black, dbr:Red.
+
+pk:weedle
+    :hasAttribute :Nose;
+    :hasAttribute :Eyes;
+    :hasAttribute :Horn;
+    :hasAttribute :Legs;
+    :hasAttribute :Tail;
+    :hasColour dbr:Brown, dbr:Red, dbr:White.
+
+pk:kakuna
+    :hasAttribute :Eyes;
+    :hasAttribute :Chrysalis;
+    :hasColour dbr:Yellow.
+
+pk:beedrill
+    :hasAttribute :Nose;
+    :hasAttribute :Eyes;
+    :hasAttribute :Antenna;
+    :hasAttribute :Arms;
+    :hasAttribute :Feet;
+    :hasAttribute :BugWings;
+    :hasAttribute :BodyRoughness;
+    :hasColour dbr:Yellow, dbr:Black, dbr:White, dbr:Red.
+
+pk:pidgey
+    :hasAttribute :Eyes;
+    :hasAttribute :Beak;
+    :hasAttribute :FlowingCrest;
+    :hasAttribute :Talons;
+    :hasAttribute :Tail;
+    :hasAttribute :FeatherWings;
+    :hasColour dbr:Brown, dbr:Beige, dbr:Red.
+
+pk:pidgeotto
+    :hasAttribute :Eyes;
+    :hasAttribute :Beak;
+    :hasAttribute :FlowingCrest;
+    :hasAttribute :Talons;
+    :hasAttribute :FeatherWings;
+    :hasAttribute :Tail;
+    :hasColour dbr:Brown, dbr:Beige, dbr:Red.
+
+pk:pidgeot
+    :hasAttribute :Eyes;
+    :hasAttribute :Beak;
+    :hasAttribute :FlowingCrest;
+    :hasAttribute :Talons;
+    :hasAttribute :FeatherWings;
+    :hasAttribute :Tail;
+    :hasColour dbr:Brown, dbr:Beige, dbr:Red.
+
+pk:rattata
+    :hasAttribute :Nose;
+    :hasAttribute :Eyes;
+    :hasAttribute :Teeth;
+    :hasAttribute :Tongue;
+    :hasAttribute :Ears;
+    :hasAttribute :Whiskers;
+    :hasAttribute :Fingers;
+    :hasAttribute :Feet;
+    :hasAttribute :Tail;
+    :hasColour dbr:Purple, dbr:Beige.
+
+pk:raticate
+    :hasAttribute :Nose;
+    :hasAttribute :Eyes;
+    :hasAttribute :Teeth;
+    :hasAttribute :Tongue;
+    :hasAttribute :Ears;
+    :hasAttribute :Whiskers;
+    :hasAttribute :Fingers;
+    :hasAttribute :Feet;
+    :hasAttribute :Tail;
+    :hasColour dbr:Brown, dbr:Beige.
+
+pk:spearow
+    :hasAttribute :Eyes;
+    :hasAttribute :Beak;
+    :hasAttribute :Tongue;
+    :hasAttribute :FlowingCrest;
+    :hasAttribute :Talons;
+    :hasAttribute :Tail;
+    :hasAttribute :FeatherWings;
+    :hasColour dbr:Brown, dbr:Beige, dbr:Red.
+
+pk:fearow
+    :hasAttribute :Eyes;
+    :hasAttribute :Beak;
+    :hasAttribute :Tongue;
+    :hasAttribute :FlowingCrest;
+    :hasAttribute :Talons;
+    :hasAttribute :Tail;
+    :hasAttribute :FeatherWings;
+    :hasColour dbr:Brown, dbr:Beige, dbr:Red.
+
+pk:ekans
+    :hasAttribute :Nose;
+    :hasAttribute :Eyes;
+    :hasAttribute :Tongue;
+    :hasAttribute :Tail;
+    :hasColour dbr:Purple, dbr:Beige.
+
+pk:arbok
+    :hasAttribute :Nose;
+    :hasAttribute :Eyes;
+    :hasAttribute :Tongue;
+    :hasAttribute :Tail;
+    :hasColour dbr:Purple, dbr:Black, dbr:Red, dbr:Yellow.
+
+pk:pikachu
+    :hasAttribute :Nose;
+    :hasAttribute :Eyes;
+    :hasAttribute :Ears;
+    :hasAttribute :Tongue;
+    :hasAttribute :Fingers;
+    :hasAttribute :Feet;
+    :hasAttribute :Tail;
+    :hasColour dbr:Yellow, dbr:Red, dbr:Black.
+
+pk:raichu
+    :hasAttribute :Nose;
+    :hasAttribute :Eyes;
+    :hasAttribute :Ears;
+    :hasAttribute :Mouth;
+    :hasAttribute :Arms;
+    :hasAttribute :Feet;
+    :hasAttribute :Tail;
+    :hasColour dbr:Yellow, dbr:Brown, dbr:Beige, dbr:Orange.
+
+pk:sandshrew
+    :hasAttribute :Nose;
+    :hasAttribute :Eyes;
+    :hasAttribute :Ears;
+    :hasAttribute :Fingers;
+    :hasAttribute :Feet;
+    :hasAttribute :Claws;
+    :hasAttribute :Tail;
+    :hasAttribute :BodySymbols;
+    :hasColour dbr:Yellow, dbr:Beige.
+
+pk:sandslash
+    :hasAttribute :Eyes;
+    :hasAttribute :Nose;
+    :hasAttribute :Ears;
+    :hasAttribute :Fingers;
+    :hasAttribute :Feet;
+    :hasAttribute :Claws;
+    :hasAttribute :Tail;
+    :hasAttribute :BodyRoughness;
+    :hasColour dbr:Brown, dbr:Yellow, dbr:Beige.
+
+pk:nidoran-f
+    :hasAttribute :Nose;
+    :hasAttribute :Eyes;
+    :hasAttribute :Teeth;
+    :hasAttribute :Tongue;
+    :hasAttribute :Ears;
+    :hasAttribute :Whiskers;
+    :hasAttribute :Feet;
+    :hasAttribute :Claws;
+    :hasAttribute :BodyRoughness;
+    :hasAttribute :BodySymbols;
+    :hasColour dbr:Blue.
+
+pk:nidorina
+    :hasAttribute :Nose;
+    :hasAttribute :Eyes;
+    :hasAttribute :Teeth;
+    :hasAttribute :Ears;
+    :hasAttribute :Fingers;
+    :hasAttribute :Feet;
+    :hasAttribute :Claws;
+    :hasAttribute :Tail;
+    :hasAttribute :BodyRoughness;
+    :hasAttribute :BodySymbols;
+    :hasColour dbr:Blue.
+
+pk:nidoqueen
+    :hasAttribute :Nose;
+    :hasAttribute :Eyes;
+    :hasAttribute :Tongue;
+    :hasAttribute :Ears;
+    :hasAttribute :Feet;
+    :hasAttribute :Fingers;
+    :hasAttribute :Claws;
+    :hasAttribute :Tail;
+    :hasAttribute :BodyRoughness;
+    :hasColour dbr:Blue, dbr:Beige.
+
+pk:nidoran-m
+    :hasAttribute :Nose;
+    :hasAttribute :Eyes;
+    :hasAttribute :Teeth;
+    :hasAttribute :Horn;
+    :hasAttribute :Ears;
+    :hasAttribute :Feet;
+    :hasAttribute :Claws;
+    :hasAttribute :BodyRoughness;
+    :hasColour dbr:Purple, dbr:Blue.
+
+pk:nidorino
+    :hasAttribute :Nose;
+    :hasAttribute :Eyes;
+    :hasAttribute :Teeth;
+    :hasAttribute :Horn;
+    :hasAttribute :Ears;
+    :hasAttribute :Feet;
+    :hasAttribute :Claws;
+    :hasAttribute :BodyRoughness;
+    :hasColour dbr:Purple, dbr:Blue.
+
+pk:nidoking
+    :hasAttribute :Nose;
+    :hasAttribute :Eyes;
+    :hasAttribute :Teeth;
+    :hasAttribute :Tongue;
+    :hasAttribute :Horn;
+    :hasAttribute :Ears;
+    :hasAttribute :Fingers;
+    :hasAttribute :Feet;
+    :hasAttribute :Claws;
+    :hasAttribute :Tail;
+    :hasAttribute :BodyRoughness;
+    :hasColour dbr:Purple, dbr:Blue, dbr:Beige.
+
+pk:clefairy
+    :hasAttribute :Eyes;
+    :hasAttribute :Tongue;
+    :hasAttribute :Teeth;
+    :hasAttribute :Ears;
+    :hasAttribute :Hair;   
+    :hasAttribute :Fingers;
+    :hasAttribute :Feet;
+    :hasAttribute :Claws;
+    :hasAttribute :Wings;
+    :hasAttribute :Tail;
+    :hasColour dbr:Pink, dbr:Brown.
+
+pk:clefable
+    :hasAttribute :Eyes;
+    :hasAttribute :Tongue;
+    :hasAttribute :Ears;
+    :hasAttribute :Hair;   
+    :hasAttribute :Fingers;
+    :hasAttribute :Feet;
+    :hasAttribute :Claws;
+    :hasAttribute :Tail;
+    :hasAttribute :Wings;
+    :hasColour dbr:Pink, dbr:Brown.
+
+pk:vulpix
+    :hasAttribute :Eyes;
+    :hasAttribute :Nose;
+    :hasAttribute :Ears;
+    :hasAttribute :Tongue;
+    :hasAttribute :Hair;
+    :hasAttribute :Feet;
+    :hasAttribute :Tail;
+    :hasColour dbr:Red, dbr:Brown.
+
+pk:ninetales
+    :hasAttribute :Eyes;
+    :hasAttribute :Nose;
+    :hasAttribute :Ears;
+    :hasAttribute :Hair;
+    :hasAttribute :Mouth;
+    :hasAttribute :Feet;
+    :hasAttribute :Tail;
+    :hasColour dbr:Yellow.
+
+pk:jigglypuff
+    :hasAttribute :Eyes;
+    :hasAttribute :Ears;
+    :hasAttribute :Mouth;
+    :hasAttribute :Hair;
+    :hasAttribute :Arms;
+    :hasAttribute :Feet;
+    :hasColour dbr:Pink, dbr:Blue.
+
+pk:wigglytuff
+    :hasAttribute :Eyes;
+    :hasAttribute :Ears;
+    :hasAttribute :Tongue;
+    :hasAttribute :Hair;
+    :hasAttribute :Arms;
+    :hasAttribute :Feet;
+    :hasColour dbr:Pink, dbr:Blue.
+
+pk:zubat
+    :hasAttribute :Teeth;
+    :hasAttribute :Tongue;
+    :hasAttribute :Ears;
+    :hasAttribute :Legs;
+    :hasAttribute :DragonWings;
+    :hasColour dbr:Blue, dbr:Purple.
+
+pk:golbat
+    :hasAttribute :Teeth;
+    :hasAttribute :Tongue;
+    :hasAttribute :Eyes;
+    :hasAttribute :Ears;
+    :hasAttribute :Feet;
+    :hasAttribute :DragonWings;
+    :hasColour dbr:Purple, dbr:Blue.
+
+pk:oddish
+    :hasAttribute :Eyes;
+    :hasAttribute :Tongue;
+    :hasAttribute :Feet;
+    :hasAttribute :Leaf;
+    :hasColour dbr:Blue, dbr:Green.
+
+pk:gloom
+    :hasAttribute :Eyes;
+    :hasAttribute :Lips;
+    :hasAttribute :Arms;
+    :hasAttribute :Feet;
+    :hasAttribute :Leaf;
+    :hasAttribute :Flower;
+    :hasColour dbr:Blue, dbr:Red, dbr:Orange.
+
+pk:vileplume
+    :hasAttribute :Eyes;
+    :hasAttribute :Mouth;
+    :hasAttribute :Arms;
+    :hasAttribute :Feet;
+    :hasAttribute :Flower;
+    :hasColour dbr:Blue, dbr:Red.
+
+pk:paras
+    :hasAttribute :Eyes;
+    :hasAttribute :Teeth;
+    :hasAttribute :Nose;
+    :hasAttribute :Legs;
+    :hasAttribute :Pinsers;
+    :hasAttribute :Mushroom;
+    :hasColour dbr:Orange, dbr:Red, dbr:Yellow.
+
+pk:parasect
+    :hasAttribute :Eyes;
+    :hasAttribute :Pinsers;
+    :hasAttribute :Legs;
+    :hasAttribute :Mushroom;
+    :hasColour dbr:Orange, dbr:Red, dbr:Yellow.
+
+pk:venonat
+    :hasAttribute :Eyes;
+    :hasAttribute :Nose;
+    :hasAttribute :Teeth;
+    :hasAttribute :Antenna;
+    :hasAttribute :Hair;
+    :hasAttribute :Fingers;
+    :hasAttribute :Feet;
+    :hasColour dbr:Pink, dbr:Purple, dbr:Beige.
+
+pk:venomoth
+    :hasAttribute :Eyes;
+    :hasAttribute :Teeth;
+    :hasAttribute :Antenna;
+    :hasAttribute :Legs;
+    :hasAttribute :BugWings;
+    :hasColour dbr:Purple.
+
+pk:diglett
+    :hasAttribute :Eyes;
+    :hasAttribute :Nose;
+    :hasAttribute :Item;
+    :hasColour dbr:Brown, dbr:Pink, dbr:Black.
+
+pk:dugtrio
+    :hasAttribute :Eyes;
+    :hasAttribute :Nose;
+    :hasAttribute :Item;
+    :hasColour dbr:Brown, dbr:Pink, dbr:Black.
+
+pk:meowth
+    :hasAttribute :Eyes;
+    :hasAttribute :Teeth;
+    :hasAttribute :Tongue;
+    :hasAttribute :Ears;
+    :hasAttribute :Whiskers;
+    :hasAttribute :Hair;
+    :hasAttribute :Fingers;
+    :hasAttribute :Feet;
+    :hasAttribute :Tail;
+    :hasAttribute :Gem;
+    :hasColour dbr:Beige, dbr:Brown, dbr:Black.
+
+pk:persian
+    :hasAttribute :Eyes;
+    :hasAttribute :Ears;
+    :hasAttribute :Nose;
+    :hasAttribute :Teeth;
+    :hasAttribute :Whiskers;
+    :hasAttribute :Feet;
+    :hasAttribute :Claws;
+    :hasAttribute :Tail;
+    :hasAttribute :Gem;
+    :hasColour dbr:Beige, dbr:Black.
+
+pk:psyduck
+    :hasAttribute :Eyes;
+    :hasAttribute :Beak;
+    :hasAttribute :Fingers;
+    :hasAttribute :Flippers;
+    :hasAttribute :Tail;
+    :hasAttribute :Hair;
+    :hasColour dbr:Yellow.
+
+pk:golduck
+    :hasAttribute :Eyes;
+    :hasAttribute :Gem;
+    :hasAttribute :Beak;
+    :hasAttribute :Tongue;
+    :hasAttribute :Fingers;
+    :hasAttribute :Claws;
+    :hasAttribute :BodyRoughness;
+    :hasAttribute :Feet;
+    :hasAttribute :Tail;
+    :hasColour dbr:Blue, dbr:Yellow.
+
+pk:mankey
+    :hasAttribute :Nose;
+    :hasAttribute :Eyes;
+    :hasAttribute :Ears;
+    :hasAttribute :Hair;
+    :hasAttribute :Fingers;
+    :hasAttribute :Feet;
+    :hasAttribute :Tail;
+    :hasColour dbr:Beige, dbr:Brown.
+
+pk:primeape
+    :hasAttribute :Nose;
+    :hasAttribute :Eyes;
+    :hasAttribute :Ears;
+    :hasAttribute :Arms;
+    :hasAttribute :Feet;
+    :hasAttribute :Hair;
+    :hasAttribute :Item;
+    :hasColour dbr:Beige, dbr:Brown, dbr:Black.
+
+pk:growlithe
+    :hasAttribute :Eyes;
+    :hasAttribute :Nose;
+    :hasAttribute :Mouth;
+    :hasAttribute :Ears;
+    :hasAttribute :Hair;
+    :hasAttribute :Feet;
+    :hasAttribute :Claws;
+    :hasAttribute :Tail;
+    :hasAttribute :BodySymbols;
+    :hasColour dbr:Orange, dbr:Black, dbr:Beige.
+
+pk:arcanine
+    :hasAttribute :Eyes;
+    :hasAttribute :Nose;
+    :hasAttribute :Teeth;
+    :hasAttribute :Ears;
+    :hasAttribute :Hair;
+    :hasAttribute :Mane;
+    :hasAttribute :Feet;
+    :hasAttribute :Tail;
+    :hasAttribute :BodySymbols;
+    :hasColour dbr:Orange, dbr:Black, dbr:Beige.
+
+pk:poliwag
+    :hasAttribute :Eyes;
+    :hasAttribute :Lips;
+    :hasAttribute :Legs;
+    :hasAttribute :Tail;
+    :hasAttribute :BodySymbols;
+    :hasColour dbr:Blue, dbr:White, dbr:Black.
+
+pk:poliwhirl
+    :hasAttribute :Eyes;
+    :hasAttribute :Nose;
+    :hasAttribute :Fingers;
+    :hasAttribute :Feet;
+    :hasAttribute :BodySymbols;
+    :hasColour dbr:Blue, dbr:White, dbr:Black.
+
+pk:poliwrath
+    :hasAttribute :Eyes;
+    :hasAttribute :Nose;
+    :hasAttribute :Fingers;
+    :hasAttribute :Feet;
+    :hasAttribute :BodySymbols;
+    :hasColour dbr:Blue, dbr:White, dbr:Black.
+
+pk:abra
+    :hasAttribute :Eyes;
+    :hasAttribute :Nose;
+    :hasAttribute :Ears;
+    :hasAttribute :Fingers;
+    :hasAttribute :Feet;
+    :hasAttribute :Tail;
+    :hasAttribute :BodyRoughness;
+    :hasColour dbr:Yellow, dbr:Brown.
+
+pk:kadabra
+    :hasAttribute :Eyes;
+    :hasAttribute :Nose;
+    :hasAttribute :Mouth;
+    :hasAttribute :Whiskers;
+    :hasAttribute :Ears;
+    :hasAttribute :Fingers;
+    :hasAttribute :Feet;
+    :hasAttribute :Claws;
+    :hasAttribute :Tail;
+    :hasAttribute :Item;
+    :hasAttribute :BodyRoughness;
+    :hasColour dbr:Yellow, dbr:Brown, dbr:Grey.
+
+pk:alakazam
+    :hasAttribute :Eyes;
+    :hasAttribute :Nose;
+    :hasAttribute :Ears;
+    :hasAttribute :Whiskers;
+    :hasAttribute :Fingers;
+    :hasAttribute :Feet;
+    :hasAttribute :Claws;
+    :hasAttribute :Tail;
+    :hasAttribute :Item;
+    :hasAttribute :BodyRoughness;
+    :hasColour dbr:Brown, dbr:Yellow, dbr:Grey.
+
+pk:machop
+    :hasAttribute :Eyes;
+    :hasAttribute :Nose;
+    :hasAttribute :Tongue;
+    :hasAttribute :BodyRoughness;
+    :hasAttribute :Fingers;
+    :hasAttribute :Feet;
+    :hasAttribute :Tail;
+    :hasColour dbr:Blue, dbr:Grey.
+
+pk:machoke
+    :hasAttribute :Eyes;
+    :hasAttribute :Nose;
+    :hasAttribute :Teeth;
+    :hasAttribute :Tongue;
+    :hasAttribute :BodyRoughness;
+    :hasAttribute :Fingers;
+    :hasAttribute :Feet;
+    :hasAttribute :Item;
+    :hasColour dbr:Purple, dbr:Grey, dbr:Black, dbr:Yellow, dbr:Red.
+
+pk:machamp
+    :hasAttribute :Eyes;
+    :hasAttribute :Nose;
+    :hasAttribute :Tongue;
+    :hasAttribute :BodyRoughness;
+    :hasAttribute :Fingers;
+    :hasAttribute :Feet;
+    :hasAttribute :Item;
+    :hasColour dbr:Blue, dbr:Grey, dbr:Black, dbr:Yellow.
+
+pk:bellsprout
+    :hasAttribute :Eyes;
+    :hasAttribute :Lips;
+    :hasAttribute :Vines;
+    :hasAttribute :Leaf;
+    :hasColour dbr:Yellow, dbr:Green, dbr:Brown, dbr:Pink.
+
+pk:weepinbell
+    :hasAttribute :Eyes;
+    :hasAttribute :Lips;
+    :hasAttribute :Tongue;
+    :hasAttribute :Leaf;
+    :hasAttribute :Vines;
+    :hasAttribute :BodySymbols;
+    :hasColour dbr:Yellow, dbr:Green, dbr:Brown, dbr:Pink.
+
+pk:victreebel
+    :hasAttribute :Eyes;
+    :hasAttribute :Teeth;
+    :hasAttribute :Tongue;
+    :hasAttribute :Leaf;
+    :hasAttribute :Vines;
+    :hasAttribute :BodySymbols;
+    :hasColour dbr:Yellow, dbr:Green, dbr:Brown, dbr:Pink.
+
+pk:tentacool
+    :hasAttribute :Eyes;
+    :hasAttribute :Tentacles;
+    :hasAttribute :Gem;
+    :hasColour dbr:Blue, dbr:Red, dbr:Grey.
+
+pk:tentacruel
+    :hasAttribute :Eyes;
+    :hasAttribute :Tentacles;
+    :hasAttribute :Beak;
+    :hasAttribute :Gem;
+    :hasColour dbr:Blue, dbr:Red, dbr:Grey, dbr:Black.
+
+pk:geodude
+    :hasAttribute :Eyes;
+    :hasAttribute :Mouth;
+    :hasAttribute :Fingers;
+    :hasAttribute :BodyRoughness;
+    :hasColour dbr:Grey.
+
+pk:graveler
+    :hasAttribute :Eyes;
+    :hasAttribute :Tongue;
+    :hasAttribute :Fingers;
+    :hasAttribute :Feet;
+    :hasAttribute :BodyRoughness;
+    :hasColour dbr:Grey.
+
+pk:golem
+    :hasAttribute :Eyes;
+    :hasAttribute :Tongue;
+    :hasAttribute :Teeth;
+    :hasAttribute :Fingers;
+    :hasAttribute :Feet;
+    :hasAttribute :Claws;
+    :hasAttribute :BodyRoughness;
+    :hasColour dbr:Brown, dbr:Grey.
+
+
+
+
+
+
+

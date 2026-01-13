@@ -1,0 +1,271 @@
+@prefix : <http://example.org/pokemon-ontology#> .
+@prefix poke: <https://pokemonkg.org/ontology#> .
+@prefix dbr: <http://dbpedia.org/resource/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:PokemonAnatomyOntology a owl:Ontology ;
+    rdfs:comment "An ontology describing the anatomical features of Pokémon."@en ;
+    rdfs:label "Pokémon Anatomy Ontology"@en ;
+    owl:versionInfo "1.0" .
+
+:BodyPart a owl:Class ;
+    rdfs:label "body part"@en ;
+    rdfs:comment "An anatomical feature of a Pokémon."@en .
+
+:structuralPartOf a owl:ObjectProperty, owl:TransitiveProperty ;
+    rdfs:label "structural part of"@en ;
+    rdfs:comment "Indicates that one anatomical feature is a structural part of another."@en ;
+    rdfs:domain :BodyPart ;
+    rdfs:range :BodyPart .
+
+:hasAttribute a owl:ObjectProperty ;
+    rdfs:label "has attribute"@en ;
+    rdfs:comment "Relates a pokemon to its attributes."@en ;
+    rdfs:domain poke:Species ;
+    rdfs:range :BodyPart .
+
+:hasColour a owl:ObjectProperty ;
+    rdfs:label "has colour"@en ;
+    rdfs:comment "Relates a pokemon to its colour."@en ;
+    rdfs:domain  poke:Species ;
+    rdfs:range owl:Thing .
+
+# 0 - Main Body
+
+:MainBody rdf:type :BodyPart ;
+    rdfs:label "main body"@en ;
+    rdfs:comment "The main body of a Pokémon."@en .
+
+# 1 - Main Body Parts
+
+:Head rdf:type :BodyPart ;
+    rdfs:label "head"@en ;
+    rdfs:comment "The head of a Pokémon."@en ;
+    :structuralPartOf :MainBody .
+
+:Body rdf:type :BodyPart ;
+    rdfs:label "body"@en ;
+    rdfs:comment "The body of a Pokémon."@en ;
+    :structuralPartOf :MainBody .
+
+:Flame rdf:type :BodyPart ;
+    rdfs:label "flame"@en ;
+    rdfs:comment "The flame of a Pokémon."@en ;
+    :structuralPartOf :MainBody .
+
+:Leaf rdf:type :BodyPart ;
+    rdfs:label "leaf"@en ;
+    rdfs:comment "The leaf of a Pokémon."@en ;
+    :structuralPartOf :MainBody .
+
+:Vines rdf:type :BodyPart ;
+    rdfs:label "vines"@en ;
+    rdfs:comment "The vines of a Pokémon."@en ;
+    :structuralPartOf :MainBody .
+
+:Flower rdf:type :BodyPart ;
+    rdfs:label "flower"@en ;
+    rdfs:comment "The flower of a Pokémon."@en ;
+    :structuralPartOf :MainBody .
+
+:Mushroom rdf:type :BodyPart ;
+    rdfs:label "mushroom"@en ;
+    rdfs:comment "The mushroom of a Pokémon."@en ;
+    :structuralPartOf :MainBody .
+
+:Chrysalis  rdf:type :BodyPart ;
+    rdfs:label "chrysalis"@en ;
+    rdfs:comment "The chrysalis of a Pokémon."@en ;
+    :structuralPartOf :MainBody .
+
+:Hair rdf:type :BodyPart ;
+    rdfs:label "hair"@en ;
+    rdfs:comment "The hair of a Pokémon."@en ;
+    :structuralPartOf :MainBody .
+
+:Mane rdf:type :BodyPart ;
+    rdfs:label "mane"@en ;
+    rdfs:comment "The mane of a Pokémon."@en ;
+    :structuralPartOf :MainBody .
+
+:BodyShell rdf:type :BodyPart ;
+    rdfs:label "body shell"@en ;
+    rdfs:comment "The body shell of a Pokémon."@en ;
+    :structuralPartOf :MainBody .
+
+:BodyRoughness rdf:type :BodyPart ;
+    rdfs:label "body roughness"@en ;
+    rdfs:comment "The body roughness of a Pokémon."@en ;
+    :structuralPartOf :MainBody .
+
+:BodySymbols rdf:type :BodyPart ;
+    rdfs:label "body symbols"@en ;
+    rdfs:comment "The body symbols/patterns of a Pokémon."@en ;
+    :structuralPartOf :MainBody .
+
+:Item rdf:type :BodyPart ;
+    rdfs:label "item"@en ;
+    rdfs:comment "The item(s) held by or on a Pokémon."@en ;
+    :structuralPartOf :MainBody .
+
+:Gem rdf:type :BodyPart ;
+    rdfs:label "gem"@en ;
+    rdfs:comment "The gem(s) of a Pokémon."@en ;
+    :structuralPartOf :MainBody .
+
+# 2 - Head Parts
+:Eyes rdf:type :BodyPart ;
+    rdfs:label "eyes"@en ;
+    rdfs:comment "The eyes of a Pokémon."@en ;
+    :structuralPartOf :Head .
+
+:Mouth rdf:type :BodyPart ;
+    rdfs:label "mouth"@en ;
+    rdfs:comment "The mouth of a Pokémon."@en ;
+    :structuralPartOf :Head .
+
+:Nose rdf:type :BodyPart ;
+    rdfs:label "nose"@en ;
+    rdfs:comment "The nose of a Pokémon."@en ;
+    :structuralPartOf :Head .
+
+:Ears rdf:type :BodyPart ;
+    rdfs:label "ears"@en ;
+    rdfs:comment "The ears of a Pokémon."@en ;
+    :structuralPartOf :Head .   
+
+:Horn rdf:type :BodyPart ;
+    rdfs:label "horn"@en ;
+    rdfs:comment "The horn of a Pokémon."@en ;
+    :structuralPartOf :Head .   
+
+:Whiskers rdf:type :BodyPart ;
+    rdfs:label "whiskers"@en ;
+    rdfs:comment "The whiskers of a Pokémon."@en ;
+    :structuralPartOf :Head .   
+
+:Antenna rdf:type :BodyPart ;
+    rdfs:label "antenna"@en ;
+    rdfs:comment "The antenna of a Pokémon."@en ;
+    :structuralPartOf :Head . 
+
+:FlowingCrest rdf:type :BodyPart ;
+    rdfs:label "flowing crest"@en ;
+    rdfs:comment "The flowing crest of a Pokémon."@en ;
+    :structuralPartOf :Head .
+
+# 3 - Mouth Parts
+:Teeth rdf:type :BodyPart ;
+    rdfs:label "teeth"@en ;
+    rdfs:comment "The teeth of a Pokémon."@en ;
+    :structuralPartOf :Mouth .
+
+:Tongue rdf:type :BodyPart ;
+    rdfs:label "tongue"@en ;
+    rdfs:comment "The tongue of a Pokémon."@en ;
+    :structuralPartOf :Mouth .
+
+:Beak rdf:type :BodyPart ;
+    rdfs:label "beak"@en ;
+    rdfs:comment "The beak of a Pokémon."@en ;
+    :structuralPartOf :Mouth .
+
+:Lips rdf:type :BodyPart ;
+    rdfs:label "lips"@en ;
+    rdfs:comment "The lips of a Pokémon."@en ;
+    :structuralPartOf :Mouth .  
+
+# 4 - Teeth Parts
+
+:Fangs rdf:type :BodyPart ;
+    rdfs:label "fangs"@en ;
+    rdfs:comment "The fangs of a Pokémon."@en ;
+    :structuralPartOf :Teeth .
+
+# 2 - Body Parts
+
+:Arms rdf:type :BodyPart ;
+    rdfs:label "arms"@en ;
+    rdfs:comment "The arms of a Pokémon."@en ;
+    :structuralPartOf :Body .
+
+:Legs rdf:type :BodyPart ;
+    rdfs:label "legs"@en ;
+    rdfs:comment "The legs of a Pokémon."@en ;
+    :structuralPartOf :Body .
+
+:Tail rdf:type :BodyPart ;
+    rdfs:label "tail"@en ;
+    rdfs:comment "The tail of a Pokémon."@en ;
+    :structuralPartOf :Body .
+
+:Wings rdf:type :BodyPart ;
+    rdfs:label "wings"@en ;
+    rdfs:comment "The wings of a Pokémon."@en ;
+    :structuralPartOf :Body .
+
+:Fins rdf:type :BodyPart ;
+    rdfs:label "fins"@en ;
+    rdfs:comment "The fins of a Pokémon."@en ;
+    :structuralPartOf :Body .  
+
+:Flippers rdf:type :BodyPart ;
+    rdfs:label "flippers"@en ;
+    rdfs:comment "The flippers of a Pokémon."@en ;
+    :structuralPartOf :Body .   
+
+:Tentacles rdf:type :BodyPart ;
+    rdfs:label "tentacles"@en ;
+    rdfs:comment "The tentacles of a Pokémon."@en ;
+    :structuralPartOf :Body .
+
+:Pinsers rdf:type :BodyPart ;
+    rdfs:label "pinsers"@en ;
+    rdfs:comment "The pinsers of a Pokémon."@en ;
+    :structuralPartOf :Body .
+
+:Claws rdf:type :BodyPart ;
+    rdfs:label "claws"@en ;
+    rdfs:comment "The claws of a Pokémon."@en ;
+    :structuralPartOf :Body .   
+
+# 3 - Arm Parts
+:Fingers rdf:type :BodyPart ;
+    rdfs:label "fingers"@en ;
+    rdfs:comment "The fingers of a Pokémon."@en ;
+    :structuralPartOf :Arms .
+
+# 3 - Leg Parts
+:Feet rdf:type :BodyPart ;
+    rdfs:label "feet"@en ;
+    rdfs:comment "The feet of a Pokémon."@en ;
+    :structuralPartOf :Legs .
+
+# 4 - Feet Parts
+:Talons rdf:type :BodyPart ;
+    rdfs:label "talons"@en ;
+    rdfs:comment "The talons of a Pokémon."@en ;
+    :structuralPartOf :Feet .   
+
+# 3 - Wing Parts
+:Feathers rdf:type :BodyPart ;
+    rdfs:label "feathers"@en ;
+    rdfs:comment "The feathers of a Pokémon."@en ;
+    :structuralPartOf :Wings . 
+
+:DragonWings rdf:type :BodyPart ;
+    rdfs:label "dragon wings"@en ;
+    rdfs:comment "The dragon wings of a Pokémon."@en ;
+    :structuralPartOf :Wings .  
+
+:BugWings rdf:type :BodyPart ;
+    rdfs:label "bug wings"@en ;
+    rdfs:comment "The bug wings of a Pokémon."@en ;
+    :structuralPartOf :Wings .
+
+
+
+
