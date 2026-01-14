@@ -1,7 +1,5 @@
-# app/main.py
 import streamlit as st
 
-# 1. Page Config: Must be the very first command
 st.set_page_config(
     page_title="Semantic Pokédex",
     page_icon="🕸️",
@@ -9,11 +7,9 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# 2. Hero Section
 st.title("🕸️Pokédex")
 st.caption("INFOMKDE Project | Utrecht University")
 st.divider()
-#dummy data stats
 st.subheader("📊 Current Graph Status (dummy data)")
 stat1, stat2, stat3, stat4 = st.columns(4)
 stat1.metric("Total Triples", "15,402")
