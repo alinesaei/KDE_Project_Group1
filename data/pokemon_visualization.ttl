@@ -1,5 +1,6 @@
 @prefix : <http://example.org/pokemon-ontology#> .
 @prefix pk:   <https://pokemonkg.org/instance/pokemon#> .
+@prefix dbr: <http://dbpedia.org/resource/> .
 
 # Visualizations are based on images from https://pokemon.fandom.com/wiki/Category:Generation_I_Pokémon
 
@@ -771,9 +772,9 @@ pk:ponyta  :hasAttribute :Head ,
                             :Lips ,
                             :Legs ,
                             :Tail ,
-                            :Feet ,
+                            :Feet ;
            :hasColour    dbr:Orange ,
-                            dbr:Cream_(colour) .
+                          <http://dbpedia.org/resource/Cream_(colour)> .
 
 pk:rapidash  :hasAttribute :Head ,
                             :Body ,
@@ -786,9 +787,9 @@ pk:rapidash  :hasAttribute :Head ,
                             :Lips ,
                             :Legs ,
                             :Tail ,
-                            :Feet ,
+                            :Feet ;
            :hasColour    dbr:Orange ,
-                            dbr:Cream_(colour) .
+                            <http://dbpedia.org/resource/Cream_(colour)> .
 
 pk:slowpoke :hasAttribute :Head ,
                             :Body ,
@@ -801,7 +802,7 @@ pk:slowpoke :hasAttribute :Head ,
                             :Ears ,
                             :Tail ;
            :hasColour    dbr:Pink ,
-                            dbr:Cream_(colour) .
+                            <http://dbpedia.org/resource/Cream_(colour)> .
 
 pk:slowbro  :hasAttribute :Head ,
                             :Body ,
@@ -816,14 +817,13 @@ pk:slowbro  :hasAttribute :Head ,
                             :Tail ,
                             :BodyShell ;
            :hasColour    dbr:Pink ,
-                            dbr:Cream_(colour) ,
+                            <http://dbpedia.org/resource/Cream_(colour)> ,
                             dbr:Grey .
 
 pk:magnemite :hasAttribute :Body ,
                              :Eyes ,
                              :Item ;
-             :hasColour   dbr:Silver_(colour) ,
-                             dbr:Grey ,
+             :hasColour      dbr:Grey ,
                              dbr:Black ,
                              dbr:Red ,
                              dbr:Blue .
@@ -831,8 +831,7 @@ pk:magnemite :hasAttribute :Body ,
 pk:magneton  :hasAttribute :Body ,
                              :Eyes ,
                              :Item ;
-             :hasColour   dbr:Silver_(colour) ,
-                             dbr:Grey ,
+             :hasColour      dbr:Grey ,
                              dbr:Black ,
                              dbr:Red ,
                              dbr:Blue .
@@ -849,7 +848,7 @@ pk:farfetchd :hasAttribute :Head ,
                              :Feet ,
                              :Item ;
              :hasColour   dbr:Brown ,
-                             dbr:Cream_(colour) ,
+                             <http://dbpedia.org/resource/Cream_(colour)> ,
                              dbr:Black ,
                              dbr:Yellow ,
                              dbr:Green .
@@ -864,7 +863,7 @@ pk:doduo     :hasAttribute :Head ,
                              :Talons ;
              :hasColour   dbr:Brown ,
                              dbr:Black ,
-                             dbr:Cream_(colour) .
+                             <http://dbpedia.org/resource/Cream_(colour)> .
 
 pk:dodrio     :hasAttribute :Head ,
                              :Body ,
@@ -878,7 +877,7 @@ pk:dodrio     :hasAttribute :Head ,
                              :Feathers ;
              :hasColour   dbr:Brown ,
                              dbr:Black ,
-                             dbr:Cream_(colour) ,
+                             <http://dbpedia.org/resource/Cream_(colour)> ,
                              dbr:Red .
 
 pk:seel      :hasAttribute :Head ,
@@ -891,7 +890,7 @@ pk:seel      :hasAttribute :Head ,
                              :Tongue ,
                              :Teeth ;
              :hasColour   dbr:White ,
-                             dbr:Cream_(colour) ,
+                             <http://dbpedia.org/resource/Cream_(colour)> .
 
 pk:dewgong      :hasAttribute :Head ,
                              :Body ,
@@ -903,7 +902,7 @@ pk:dewgong      :hasAttribute :Head ,
                              :Tongue ,
                              :Teeth ;
              :hasColour   dbr:White ,
-                             dbr:Cream_(colour) ,
+                             <http://dbpedia.org/resource/Cream_(colour)> .
 
 pk:grimer      :hasAttribute :Head ,
                              :Body ,
@@ -968,10 +967,10 @@ pk:haunter
                 :Teeth ,
                 :Arms ,
                 :Fingers ,
-                :Claws ,
+                :Claws ;
   :hasColour    dbr:Purple ,
                 dbr:Grey,
-                dbr:Pink ,
+                dbr:Pink .
 
 pk:gengar
   :hasAttribute :Head ,
@@ -987,7 +986,7 @@ pk:gengar
                 :BodyRoughness ;
   :hasColour    dbr:Purple ,
                 dbr:Red ,
-                dbr:White ,
+                dbr:White .
 
 pk:onix
   :hasAttribute :Head ,
@@ -1030,7 +1029,7 @@ pk:hypno
                 :Feet ,
                 :Item ;
   :hasColour    dbr:Yellow ,
-                dbr:White ,
+                dbr:White .
 
 pk:krabby
   :hasAttribute :Body ,
@@ -1042,7 +1041,7 @@ pk:krabby
                 :Feet ,
                 :Pinsers ;
   :hasColour    dbr:Orange ,
-                dbr:Cream_(colour) ,
+                <http://dbpedia.org/resource/Cream_(colour)> ,
                 dbr:White ,
                 dbr:Grey .
 
@@ -1057,7 +1056,7 @@ pk:kingler
                 :Pinsers ,
                 :Horn ;
   :hasColour   dbr:Orange ,
-                dbr:Cream_(colour) ,
+                <http://dbpedia.org/resource/Cream_(colour)> ,
                 dbr:White ,
                 dbr:Black .
 
@@ -1083,7 +1082,7 @@ pk:exeggcute
                 :Eyes ,
                 :Mouth ;
   :hasColour    dbr:Pink ,
-                dbr:Cream_(colour)
+                <http://dbpedia.org/resource/Cream_(colour)> ,
                 dbr:Yellow .
 
 pk:exeggutor
@@ -1098,7 +1097,7 @@ pk:exeggutor
                 :Leaf ;
   :hasColour    dbr:Brown ,
                 dbr:Yellow ,
-                dbr:Green ,
+                dbr:Green .
 
 pk:cubone
   :hasAttribute :Head ,
@@ -1112,7 +1111,7 @@ pk:cubone
                 :Horn ,
                 :Item ;
   :hasColour    dbr:Brown ,
-                dbr:Cream_(colour) ,
+                <http://dbpedia.org/resource/Cream_(colour)> ,
                 dbr:White .
 
 pk:marowak
@@ -1127,7 +1126,7 @@ pk:marowak
                 :Horn ,
                 :Item ;
   :hasColour    dbr:Brown ,
-                dbr:Cream_(colour) ,
+                <http://dbpedia.org/resource/Cream_(colour)> ,
                 dbr:White .
 
 pk:hitmonlee
@@ -1140,7 +1139,7 @@ pk:hitmonlee
                 :Feet ,
                 :Claws ;
   :hasColour    dbr:Brown ,
-                dbr:Cream_(colour) .
+                <http://dbpedia.org/resource/Cream_(colour)> .
 
 pk:hitmonchan
   :hasAttribute :Head ,
@@ -1152,10 +1151,10 @@ pk:hitmonchan
                 :Feet ,
                 :Item ;
   :hasColour    dbr:Brown ,
-                dbr:Cream_(colour) ,
+                <http://dbpedia.org/resource/Cream_(colour)> ,
                 dbr:Purple ,
                 dbr:Red ,
-                dbr:Grey ,
+                dbr:Grey .
 
 pk:lickitung
   :hasAttribute :Head ,
@@ -1171,7 +1170,7 @@ pk:lickitung
                 :BodySymbols ;
   :hasColour    dbr:Pink ,
                 dbr:Yellow ,
-                dbr:Cream_(colour)
+                <http://dbpedia.org/resource/Cream_(colour)> .
 
 pk:koffing
   :hasAttribute :Body ,
@@ -1180,7 +1179,7 @@ pk:koffing
                 :Teeth ,
                 :BodySymbols ;
   :hasColour    dbr:Purple ,
-                dbr:Cream_(colour) ,
+                <http://dbpedia.org/resource/Cream_(colour)> ,
                 dbr:Yellow ,
                 dbr:Pink .
 
@@ -1192,7 +1191,7 @@ pk:weezing
                 :Fangs ,
                 :BodySymbols ;
   :hasColour    dbr:Purple ,
-                dbr:Cream_(colour) ,
+                <http://dbpedia.org/resource/Cream_(colour)> ,
                 dbr:Yellow .
 
 pk:rhyhorn
@@ -1227,7 +1226,7 @@ pk:rhydon
                 :BodySymbols ;
   :hasColour    dbr:Grey ,
                 dbr:White,
-                dbr:Cream_(colour) .
+                <http://dbpedia.org/resource/Cream_(colour)> .
 
 pk:chansey
   :hasAttribute :Head ,
@@ -1268,7 +1267,7 @@ pk:kangaskhan
                 :Claws ,
                 :Tail ;
   :hasColour    dbr:Brown ,
-                dbr:Cream_(colour) ,
+                <http://dbpedia.org/resource/Cream_(colour)> ,
                 dbr:Pink ,
                 dbr:Purple .
 
@@ -1280,7 +1279,7 @@ pk:horsea
                 :Fins ,
                 :Tail ;
   :hasColour    dbr:Blue ,
-                dbr:Cream_(colour) .
+                <http://dbpedia.org/resource/Cream_(colour)> .
 
 pk:seadra
   :hasAttribute :Head ,
@@ -1290,7 +1289,7 @@ pk:seadra
                 :Fins ,
                 :Tail ;
   :hasColour    dbr:Blue ,
-                dbr:Cream_(colour) .
+                <http://dbpedia.org/resource/Cream_(colour)> .
 
 pk:goldeen
   :hasAttribute :Head ,
@@ -1359,7 +1358,7 @@ pk:scyther
                 :Legs ,
                 :Feet ;
   :hasColour    dbr:Green ,
-                dbr:Cream_(colour) ,
+                <http://dbpedia.org/resource/Cream_(colour)> ,
                 dbr:White .
 
 pk:jynx
@@ -1376,7 +1375,7 @@ pk:jynx
                 dbr:Red ,
                 dbr:Yellow ,
                 dbr:White ,
-                dbr:Cream_(colour) .
+                <http://dbpedia.org/resource/Cream_(colour)> .
 
 pk:electabuzz
   :hasAttribute :Head ,
@@ -1414,7 +1413,7 @@ pk:magmar
                 dbr:Yellow ,
                 dbr:Orange ,
                 dbr:Black ,
-                dbr:Cream_(colour) .
+                <http://dbpedia.org/resource/Cream_(colour)> .
 
 pk:pinsir
   :hasAttribute :Head ,
@@ -1444,7 +1443,7 @@ pk:tauros
                 :Tail ;
   :hasColour    dbr:Brown ,
                 dbr:Grey ,
-                dbr:Cream_(colour) .
+                <http://dbpedia.org/resource/Cream_(colour)> .
 
 pk:magikarp
   :hasAttribute :Head ,
@@ -1457,10 +1456,9 @@ pk:magikarp
                 :Whiskers ;
   :hasColour    dbr:Orange ,
                 dbr:Yellow ,
-                dbr:White ,
+                dbr:White .
 
-pk:gyarados
-  :hasAttribute :Head ,
+pk:gyarados :hasAttribute :Head ,
                 :Body ,
                 :Eyes ,
                 :Mouth ,
@@ -1471,7 +1469,7 @@ pk:gyarados
                 :Horn ,
                 :Whiskers ;
   :hasColour    dbr:Blue ,
-                dbr:Cream_(colour) ,
+                <http://dbpedia.org/resource/Cream_(colour)> ,
                 dbr:Grey .
 
 pk:lapras
@@ -1485,7 +1483,7 @@ pk:lapras
                 :Tail ,
                 :BodyShell ;
   :hasColour    dbr:Blue ,
-                dbr:Cream_(colour) ,
+                <http://dbpedia.org/resource/Cream_(colour)> ,
                 dbr:Grey .
 
 pk:ditto
@@ -1507,7 +1505,7 @@ pk:eevee
                 :Mane ,
                 :Tail ;
   :hasColour    dbr:Brown ,
-                dbr:Cream_(colour) .
+                <http://dbpedia.org/resource/Cream_(colour)> .
 
 pk:vaporeon
   :hasAttribute :Head ,
@@ -1521,7 +1519,7 @@ pk:vaporeon
                 :Tail ;
   :hasColour    dbr:Blue ,
                 dbr:White ,
-                dbr:Cream_(colour) .
+                <http://dbpedia.org/resource/Cream_(colour)> .
 
 pk:jolteon
   :hasAttribute :Head ,
@@ -1553,7 +1551,7 @@ pk:flareon
                 :Tail ;
   :hasColour    dbr:Orange ,
                 dbr:Yellow ,
-                dbr:Cream_(colour) ,
+                <http://dbpedia.org/resource/Cream_(colour)> ,
                 dbr:Black .
 
 pk:porygon
@@ -1572,7 +1570,7 @@ pk:omanyte
                 :Tentacles ,
                 :BodyShell ;
   :hasColour    dbr:Blue ,
-                dbr:Cream_(colour) .
+                <http://dbpedia.org/resource/Cream_(colour)> .
 
 pk:omastar
   :hasAttribute :Body ,
@@ -1583,7 +1581,7 @@ pk:omastar
                 :BodyShell ,
                 :Horn ;
   :hasColour    dbr:Blue ,
-                dbr:Cream_(colour) .
+                <http://dbpedia.org/resource/Cream_(colour)> .
 
 pk:kabuto
   :hasAttribute :Body ,
@@ -1637,7 +1635,7 @@ pk:snorlax
                 :Legs ,
                 :Feet ;
   :hasColour    dbr:Blue ,
-                dbr:Cream_(colour) ,
+                <http://dbpedia.org/resource/Cream_(colour)> ,
                 dbr:Brown .
 
 pk:articuno
@@ -1729,7 +1727,7 @@ pk:dragonite
                 :Feet ,
                 :Tail ;
   :hasColour    dbr:Orange ,
-                dbr:Cream_(colour) ,
+                <http://dbpedia.org/resource/Cream_(colour)> ,
                 dbr:Green .
 
 pk:mewtwo
