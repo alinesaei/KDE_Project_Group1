@@ -757,9 +757,1021 @@ pk:golem
     :hasAttribute :BodyRoughness;
     :hasColour dbr:Brown, dbr:Grey.
 
+#Sam
 
 
+pk:ponyta  :hasAttribute :Head ,
+                            :Body ,
+                            :Flame ,
+                            :Hair ,
+                            :Mane ,
+                            :Eyes ,
+                            :Mouth ,
+                            :Ears ,
+                            :Lips ,
+                            :Legs ,
+                            :Tail ,
+                            :Feet ,
+           :hasColour    dbr:Orange ,
+                            dbr:Cream_(colour) .
 
+pk:rapidash  :hasAttribute :Head ,
+                            :Body ,
+                            :Flame ,
+                            :Hair ,
+                            :Mane ,
+                            :Eyes ,
+                            :Mouth ,
+                            :Ears ,
+                            :Lips ,
+                            :Legs ,
+                            :Tail ,
+                            :Feet ,
+           :hasColour    dbr:Orange ,
+                            dbr:Cream_(colour) .
+
+pk:slowpoke :hasAttribute :Head ,
+                            :Body ,
+                            :Legs ,
+                            :Feet ,
+                            :Eyes ,
+                            :Mouth ,
+                            :Lips ,
+                            :Tongue ,
+                            :Ears ,
+                            :Tail ;
+           :hasColour    dbr:Pink ,
+                            dbr:Cream_(colour) .
+
+pk:slowbro  :hasAttribute :Head ,
+                            :Body ,
+                            :Arms ,
+                            :Legs ,
+                            :Feet ,
+                            :Eyes ,
+                            :Mouth ,
+                            :Lips ,
+                            :Tongue ,
+                            :Ears ,
+                            :Tail ,
+                            :BodyShell ;
+           :hasColour    dbr:Pink ,
+                            dbr:Cream_(colour) ,
+                            dbr:Grey .
+
+pk:magnemite :hasAttribute :Body ,
+                             :Eyes ,
+                             :Item ;
+             :hasColour   dbr:Silver_(colour) ,
+                             dbr:Grey ,
+                             dbr:Black ,
+                             dbr:Red ,
+                             dbr:Blue .
+
+pk:magneton  :hasAttribute :Body ,
+                             :Eyes ,
+                             :Item ;
+             :hasColour   dbr:Silver_(colour) ,
+                             dbr:Grey ,
+                             dbr:Black ,
+                             dbr:Red ,
+                             dbr:Blue .
+
+pk:farfetchd :hasAttribute :Head ,
+                             :Body ,
+                             :Legs ,
+                             :Feet ,
+                             :Eyes ,
+                             :Mouth ,
+                             :Beak ,
+                             :Wings ,
+                             :FeatheredWings ,
+                             :Feet ,
+                             :Item ;
+             :hasColour   dbr:Brown ,
+                             dbr:Cream_(colour) ,
+                             dbr:Black ,
+                             dbr:Yellow ,
+                             dbr:Green .
+
+pk:doduo     :hasAttribute :Head ,
+                             :Body ,
+                             :Legs ,
+                             :Feet ,
+                             :Eyes ,
+                             :Mouth ,
+                             :Beak ,
+                             :Talons ;
+             :hasColour   dbr:Brown ,
+                             dbr:Black ,
+                             dbr:Cream_(colour) .
+
+pk:dodrio     :hasAttribute :Head ,
+                             :Body ,
+                             :Legs ,
+                             :Feet ,
+                             :Eyes ,
+                             :Mouth ,
+                             :Beak ,
+                             :Talons ,
+                             :Wings ,
+                             :FeatheredWings ;
+             :hasColour   dbr:Brown ,
+                             dbr:Black ,
+                             dbr:Cream_(colour) ,
+                             dbr:Red .
+
+pk:seel      :hasAttribute :Head ,
+                             :Body ,
+                             :Flippers ,
+                             :Tail ,
+                             :Eyes ,
+                             :Mouth ,
+                             :Lips ,
+                             :Tongue ,
+                             :Teeth ;
+             :hasColour   dbr:White ,
+                             dbr:Cream_(colour) ,
+
+pk:dewgong      :hasAttribute :Head ,
+                             :Body ,
+                             :Flippers ,
+                             :Tail ,
+                             :Eyes ,
+                             :Mouth ,
+                             :Lips ,
+                             :Tongue ,
+                             :Teeth ;
+             :hasColour   dbr:White ,
+                             dbr:Cream_(colour) ,
+
+pk:grimer      :hasAttribute :Head ,
+                             :Body ,
+                             :Eyes ,
+                             :Mouth ,
+                             :Tongue ,
+                             :Arms ,
+                             :Fingers ;
+            :hasColour   dbr:Purple ,
+                             dbr:Grey ,
+                             dbr:Black .
+
+pk:muk      :hasAttribute :Head ,
+                             :Body ,
+                             :Eyes ,
+                             :Mouth ,
+                             :Tongue ,
+                             :Arms ,
+                             :Fingers ;
+            :hasColour   dbr:Purple ,
+                             dbr:Grey ,
+                             dbr:Black .
+
+pk:shellder
+  :hasAttribute :Body ,
+                :BodyShell ,
+                :Eyes ,
+                :Mouth ,
+                :Tongue ;
+  :hasColour    dbr:Purple ,
+                dbr:Black ,
+                dbr:White ,
+                dbr:Pink .
+
+pk:cloyster
+  :hasAttribute :Body ,
+                :BodyShell ,
+                :Eyes ,
+                :Mouth ,
+                :Horn ;
+  :hasColour    dbr:Black ,
+                dbr:Grey ,
+                dbr:Blue ,
+                dbr:Purple ,
+                dbr:White .
+
+pk:gastly
+  :hasAttribute :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Tongue ,
+                :Fangs ;
+  :hasColour    dbr:Black ,
+                dbr:Purple ,
+                dbr:White .
+
+pk:haunter
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Teeth ,
+                :Arms ,
+                :Fingers ,
+                :Claws ,
+  :hasColour    dbr:Purple ,
+                dbr:Grey,
+                dbr:Pink ,
+
+pk:gengar
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Ears ,
+                :Arms ,
+                :Fingers ,
+                :Legs ,
+                :Feet ,
+                :Tail ,
+                :BodyRoughness ;
+  :hasColour    dbr:Purple ,
+                dbr:Red ,
+                dbr:White ,
+
+pk:onix
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Horn ,
+                :Tail ;
+  :hasColour    dbr:Grey ,
+                dbr:Black .
+
+pk:drowzee
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Tongue ,
+                :Nose ,
+                :Ears ,
+                :Arms ,
+                :Fingers ,
+                :Legs ,
+                :Feet ;
+  :hasColour    dbr:Yellow ,
+                dbr:Brown ,
+                dbr:Pink .
+
+pk:hypno
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Nose ,
+                :Ears ,
+                :Hair ,
+                :Mane ,
+                :Arms ,
+                :Fingers ,
+                :Legs ,
+                :Feet ,
+                :Item ;
+  :hasColour    dbr:Yellow ,
+                dbr:White ,
+
+pk:krabby
+  :hasAttribute :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Teeth ,
+                :Fangs ,
+                :Legs ,
+                :Feet ,
+                :Pinsers ;
+  :hasColour    dbr:Orange ,
+                dbr:Cream_(colour) ,
+                dbr:White ,
+                dbr:Grey .
+
+pk:kingler
+  :hasAttribute :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Fangs ,
+                :Teeth ,
+                :Legs ,
+                :Feet ,
+                :Pinsers ,
+                :Horn ;
+  :hasColour   dbr:Orange ,
+                dbr:Cream_(colour) ,
+                dbr:White ,
+                dbr:Black .
+
+pk:voltorb
+  :hasAttribute :Body ,
+                :Eyes ;
+  :hasColour    dbr:Red ,
+                dbr:White ,
+                dbr:Grey .
+
+pk:electrode
+  :hasAttribute :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Teeth ;
+  :hasColour    dbr:Red ,
+                dbr:White ,
+                dbr:Grey .
+
+pk:exeggcute
+  :hasAttribute :Body ,
+                :BodyShell ,
+                :Eyes ,
+                :Mouth ;
+  :hasColour    dbr:Pink ,
+                dbr:Cream_(colour)
+                dbr:Yellow .
+
+pk:exeggutor
+  :hasAttribute :Body ,
+                :Legs ,
+                :Feet ,
+                :BodySymbols ,
+                :Head ,
+                :Eyes ,
+                :Mouth ,
+                :Teeth ,
+                :Leaf ;
+  :hasColour    dbr:Brown ,
+                dbr:Yellow ,
+                dbr:Green ,
+
+pk:cubone
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Arms ,
+                :Fingers ,
+                :Legs ,
+                :Feet ,
+                :Tail ,
+                :Horn ,
+                :Item ;
+  :hasColour    dbr:Brown ,
+                dbr:Cream_(colour) ,
+                dbr:White .
+
+pk:marowak
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Arms ,
+                :Fingers ,
+                :Legs ,
+                :Feet ,
+                :Tail ,
+                :Horn ,
+                :Item ;
+  :hasColour    dbr:Brown ,
+                dbr:Cream_(colour) ,
+                dbr:White .
+
+pk:hitmonlee
+  :hasAttribute :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Arms ,
+                :Fingers ,
+                :Legs ,
+                :Feet ,
+                :Claws ;
+  :hasColour    dbr:Brown ,
+                dbr:Cream_(colour) .
+
+pk:hitmonchan
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Arms ,
+                :Fingers ,
+                :Legs ,
+                :Feet ,
+                :Item ;
+  :hasColour    dbr:Brown ,
+                dbr:Cream_(colour) ,
+                dbr:Purple ,
+                dbr:Red ,
+                dbr:Grey ,
+
+pk:lickitung
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Tongue ,
+                :Arms ,
+                :Fingers ,
+                :Legs ,
+                :Feet ,
+                :Tail ,
+                :BodySymbols ;
+  :hasColour    dbr:Pink ,
+                dbr:Yellow ,
+                dbr:Cream_(colour)
+
+pk:koffing
+  :hasAttribute :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Teeth ,
+                :BodySymbols ;
+  :hasColour    dbr:Purple ,
+                dbr:Cream_(colour) ,
+                dbr:Yellow ,
+                dbr:Pink .
+
+pk:weezing
+  :hasAttribute :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Teeth ,
+                :Fangs ,
+                :BodySymbols ;
+  :hasColour    dbr:Purple ,
+                dbr:Cream_(colour) ,
+                dbr:Yellow .
+
+pk:rhyhorn
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Teeth ,
+                :Fangs ,
+                :Horn ,
+                :Legs ,
+                :Feet ,
+                :Claws ,
+                :Tail ;
+  :hasColour    dbr:Grey ,
+                dbr:White .
+
+pk:rhydon
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Fangs ,
+                :Horn ,
+                :Ears ,
+                :Arms ,
+                :Fingers ,
+                :Legs ,
+                :Feet ,
+                :Claws ,
+                :Tail ,
+                :BodySymbols ;
+  :hasColour    dbr:Grey ,
+                dbr:White,
+                dbr:Cream_(colour) .
+
+pk:chansey
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Hair ,
+                :Arms ,
+                :Legs ,
+                :Feet ,
+                :Tail ,
+                :Item ;
+  :hasColour    dbr:Pink ,
+                dbr:White .
+
+pk:tangela
+  :hasAttribute :Body ,
+                :Eyes ,
+                :Feet ,
+                :Vines ;
+  :hasColour    dbr:Blue ,
+                dbr:Orange ,
+                dbr:Black ,
+                dbr:White .
+
+pk:kangaskhan
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Teeth ,
+                :Fangs ,
+                :Ears ,
+                :Arms ,
+                :Fingers ,
+                :Legs ,
+                :Feet ,
+                :Claws ,
+                :Tail ;
+  :hasColour    dbr:Brown ,
+                dbr:Cream_(colour) ,
+                dbr:Pink ,
+                dbr:Purple .
+
+pk:horsea
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Fins ,
+                :Tail ;
+  :hasColour    dbr:Blue ,
+                dbr:Cream_(colour) .
+
+pk:seadra
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Fins ,
+                :Tail ;
+  :hasColour    dbr:Blue ,
+                dbr:Cream_(colour) .
+
+pk:goldeen
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Lips ,
+                :Fins ,
+                :Tail ,
+                :Horn ;
+  :hasColour    dbr:White ,
+                dbr:Orange .
+
+pk:seaking
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Teeth ,
+                :Lips ,
+                :Fangs ,
+                :Fins ,
+                :Tail ,
+                :Horn ;
+  :hasColour    dbr:Orange ,
+                dbr:White ,
+                dbr:Black .
+
+pk:staryu
+  :hasAttribute :Body ,
+                :Item ;
+  :hasColour    dbr:Brown ,
+                dbr:Yellow ,
+                dbr:Red .
+
+pk:starmie
+  :hasAttribute :Body ,
+                :Item ;
+  :hasColour    dbr:Grey ,
+                dbr:Yellow ,
+                dbr:Red .
+
+pk:mr_mime
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Hair ,
+                :Arms ,
+                :Fingers ,
+                :Legs ,
+                :Feet ,
+                :BodySymbols ;
+  :hasColour    dbr:Pink ,
+                dbr:White ,
+                dbr:Blue .
+
+pk:scyther
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Horn ,
+                :Arms ,
+                :Claws ,
+                :Wings ,
+                :Legs ,
+                :Feet ;
+  :hasColour    dbr:Green ,
+                dbr:Cream_(colour) ,
+                dbr:White .
+
+pk:jynx
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Hair ,
+                :Arms ,
+                :Fingers ;
+  :hasColour    dbr:Purple ,
+                dbr:Pink ,
+                dbr:Blond ,
+                dbr:Red ,
+                dbr:Yellow ,
+                dbr:White ,
+                dbr:Black .
+
+pk:electabuzz
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Fangs ,
+                :Ears ,
+                :Arms ,
+                :Fingers ,
+                :Legs ,
+                :Feet ,
+                :Claws ,
+                :Tail ,
+                :BodySymbols ;
+  :hasColour    dbr:Yellow ,
+                dbr:Black .
+
+pk:magmar
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Beak ,
+                :Horn ,
+                :Arms ,
+                :Fingers ,
+                :Legs ,
+                :Feet ,
+                :Claws ,
+                :Tail ,
+                :BodySymbols ;
+  :hasColour    dbr:Red ,
+                dbr:Yellow ,
+                dbr:Orange ,
+                dbr:Black ,
+                dbr:Cream_(colour) .
+
+pk:pinsir
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Teeth ,
+                :Horn ,
+                :Arms ,
+                :Fingers ,
+                :Legs ,
+                :Feet ,
+                :Claws ;
+  :hasColour    dbr:Brown ,
+                dbr:Grey ,
+                dbr:White ,
+                dbr:Black .
+
+pk:tauros
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Nose ,
+                :Horn ,
+                :Ears ,
+                :Legs ,
+                :Feet ,
+                :Tail ;
+  :hasColour    dbr:Brown ,
+                dbr:Black ,
+                dbr:Grey ,
+                dbr:Cream_(colour) .
+
+pk:magikarp
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Fins ,
+                :Tail ,
+                :Horn ;
+  :hasColour    dbr:Orange ,
+                dbr:Yellow ,
+                dbr:White ,
+                dbr:Pink .
+
+pk:gyarados
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Teeth ,
+                :Fangs ,
+                :Fins ,
+                :Tail ,
+                :Horn ;
+  :hasColour    dbr:Blue ,
+                dbr:Yellow ,
+                dbr:White ,
+                dbr:Red ,
+                dbr:Black .
+
+pk:lapras
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Horn ,
+                :Ears ,
+                :Fins ,
+                :Tail ,
+                :BodyShell ;
+  :hasColour    dbr:Blue ,
+                dbr:Cream_(colour) ,
+                dbr:Grey ,
+                dbr:Brown .
+
+pk:ditto
+  :hasAttribute :Body ,
+                :Eyes ,
+                :Mouth ;
+  :hasColour    dbr:Purple ,
+                dbr:Pink .
+
+pk:eevee
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Nose ,
+                :Ears ,
+                :Hair ,
+                :Legs ,
+                :Feet ,
+                :Tail ;
+  :hasColour    dbr:Brown ,
+                dbr:Cream_(colour) ,
+                dbr:Black ,
+                dbr:Pink .
+
+pk:vaporeon
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Nose ,
+                :Ears ,
+                :Fins ,
+                :Legs ,
+                :Feet ,
+                :Tail ;
+  :hasColour    dbr:Blue ,
+                dbr:White ,
+                dbr:Cream_(colour) ,
+                dbr:Black .
+
+pk:jolteon
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Nose ,
+                :Ears ,
+                :Hair ,
+                :Legs ,
+                :Feet ,
+                :Tail ;
+  :hasColour    dbr:Yellow ,
+                dbr:White ,
+                dbr:Black ,
+                dbr:Pink .
+
+pk:flareon
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Nose ,
+                :Ears ,
+                :Hair ,
+                :Legs ,
+                :Feet ,
+                :Tail ;
+  :hasColour    dbr:Orange ,
+                dbr:Yellow ,
+                dbr:Cream_(colour) ,
+                dbr:Black .
+
+pk:porygon
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Beak ,
+                :Legs ,
+                :Feet ,
+                :Tail ;
+  :hasColour    dbr:Pink ,
+                dbr:Blue .
+
+pk:omanyte
+  :hasAttribute :Body ,
+                :Eyes ,
+                :Tentacles ,
+                :BodyShell ;
+  :hasColour    dbr:Blue ,
+                dbr:Yellow ,
+                dbr:Cream_(colour) .
+
+pk:omastar
+  :hasAttribute :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Beak ,
+                :Tentacles ,
+                :BodyShell ,
+                :Horn ;
+  :hasColour    dbr:Blue ,
+                dbr:Yellow ,
+                dbr:Cream_(colour) ,
+                dbr:Black .
+
+pk:kabuto
+  :hasAttribute :Body ,
+                :Eyes ,
+                :Legs ,
+                :Feet ,
+                :BodyShell ;
+  :hasColour    dbr:Brown ,
+                dbr:Yellow ,
+                dbr:Red ,
+                dbr:Black .
+
+pk:kabutops
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Arms ,
+                :Claws ,
+                :Legs ,
+                :Feet ,
+                :Tail ,
+                :BodyShell ;
+  :hasColour    dbr:Brown ,
+                dbr:Grey ,
+                dbr:Black .
+
+pk:aerodactyl
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Fangs ,
+                :Ears ,
+                :Wings ,
+                :Arms ,
+                :Claws ,
+                :Legs ,
+                :Feet ,
+                :Tail ;
+  :hasColour    dbr:Grey ,
+                dbr:Purple ,
+                dbr:Green ,
+                dbr:Black .
+
+pk:snorlax
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Teeth ,
+                :Ears ,
+                :Arms ,
+                :Fingers ,
+                :Claws ,
+                :Legs ,
+                :Feet ;
+  :hasColour    dbr:Blue ,
+                dbr:Cream_(colour) ,
+                dbr:Brown ,
+                dbr:Black .
+
+pk:articuno
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Beak ,
+                :Wings ,
+                :Tail ,
+                :Legs ,
+                :Feet ;
+  :hasColour    dbr:Blue ,
+                dbr:White ,
+                dbr:Red ,
+                dbr:Grey .
+
+pk:zapdos
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Beak ,
+                :Wings ,
+                :Tail ,
+                :Legs ,
+                :Feet ,
+                :Claws ;
+  :hasColour    dbr:Yellow ,
+                dbr:Black ,
+                dbr:Orange ,
+                dbr:Brown .
+
+pk:moltres
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Beak ,
+                :Wings ,
+                :Tail ,
+                :Legs ,
+                :Feet ;
+  :hasColour    dbr:Yellow ,
+                dbr:Orange ,
+                dbr:Red ,
+                dbr:Brown ,
+                dbr:Black .
+
+pk:dratini
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Horn ,
+                :Fins ,
+                :Tail ;
+  :hasColour    dbr:Blue ,
+                dbr:White ,
+                dbr:Purple .
+
+pk:dragonair
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Horn ,
+                :Fins ,
+                :Tail ,
+                :Gem ;
+  :hasColour    dbr:Blue ,
+                dbr:White ,
+                dbr:Purple .
+
+pk:dragonite
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Mouth ,
+                :Nose ,
+                :Horn ,
+                :Wings ,
+                :Arms ,
+                :Fingers ,
+                :Claws ,
+                :Legs ,
+                :Feet ,
+                :Tail ;
+  :hasColour    dbr:Orange ,
+                dbr:Cream_(colour) ,
+                dbr:Green ,
+                dbr:Blue ,
+                dbr:White .
+
+pk:mewtwo
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Arms ,
+                :Fingers ,
+                :Legs ,
+                :Feet ,
+                :Tail ,
+                :Horn ;
+  :hasColour    dbr:Grey ,
+                dbr:Purple .
+
+pk:mew
+  :hasAttribute :Head ,
+                :Body ,
+                :Eyes ,
+                :Ears ,
+                :Arms ,
+                :Fingers ,
+                :Legs ,
+                :Feet ,
+                :Tail ;
+  :hasColour    dbr:Pink ,
+                dbr:Blue .
+
+                        
 
 
 
