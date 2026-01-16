@@ -845,7 +845,7 @@ pk:farfetchd :hasAttribute :Head ,
                              :Mouth ,
                              :Beak ,
                              :Wings ,
-                             :FeatheredWings ,
+                             :Feathers ,
                              :Feet ,
                              :Item ;
              :hasColour   dbr:Brown ,
@@ -875,7 +875,7 @@ pk:dodrio     :hasAttribute :Head ,
                              :Beak ,
                              :Talons ,
                              :Wings ,
-                             :FeatheredWings ;
+                             :Feathers ;
              :hasColour   dbr:Brown ,
                              dbr:Black ,
                              dbr:Cream_(colour) ,
@@ -1367,16 +1367,16 @@ pk:jynx
                 :Body ,
                 :Eyes ,
                 :Mouth ,
+                :Lips ,
                 :Hair ,
                 :Arms ,
                 :Fingers ;
   :hasColour    dbr:Purple ,
                 dbr:Pink ,
-                dbr:Blond ,
                 dbr:Red ,
                 dbr:Yellow ,
                 dbr:White ,
-                dbr:Black .
+                dbr:Cream_(colour) .
 
 pk:electabuzz
   :hasAttribute :Head ,
@@ -1384,7 +1384,7 @@ pk:electabuzz
                 :Eyes ,
                 :Mouth ,
                 :Fangs ,
-                :Ears ,
+                :Antenna ,
                 :Arms ,
                 :Fingers ,
                 :Legs ,
@@ -1408,6 +1408,7 @@ pk:magmar
                 :Feet ,
                 :Claws ,
                 :Tail ,
+                :Flame ,
                 :BodySymbols ;
   :hasColour    dbr:Red ,
                 dbr:Yellow ,
@@ -1427,8 +1428,7 @@ pk:pinsir
                 :Legs ,
                 :Feet ,
                 :Claws ;
-  :hasColour    dbr:Brown ,
-                dbr:Grey ,
+  :hasColour  dbr:Grey ,
                 dbr:White ,
                 dbr:Black .
 
@@ -1439,12 +1439,10 @@ pk:tauros
                 :Mouth ,
                 :Nose ,
                 :Horn ,
-                :Ears ,
                 :Legs ,
                 :Feet ,
                 :Tail ;
   :hasColour    dbr:Brown ,
-                dbr:Black ,
                 dbr:Grey ,
                 dbr:Cream_(colour) .
 
@@ -1453,13 +1451,13 @@ pk:magikarp
                 :Body ,
                 :Eyes ,
                 :Mouth ,
+                :Lips ,
                 :Fins ,
                 :Tail ,
-                :Horn ;
+                :Whiskers ;
   :hasColour    dbr:Orange ,
                 dbr:Yellow ,
                 dbr:White ,
-                dbr:Pink .
 
 pk:gyarados
   :hasAttribute :Head ,
@@ -1470,12 +1468,11 @@ pk:gyarados
                 :Fangs ,
                 :Fins ,
                 :Tail ,
-                :Horn ;
+                :Horn ,
+                :Whiskers ;
   :hasColour    dbr:Blue ,
-                dbr:Yellow ,
-                dbr:White ,
-                dbr:Red ,
-                dbr:Black .
+                dbr:Cream_(colour) ,
+                dbr:Grey .
 
 pk:lapras
   :hasAttribute :Head ,
@@ -1489,15 +1486,13 @@ pk:lapras
                 :BodyShell ;
   :hasColour    dbr:Blue ,
                 dbr:Cream_(colour) ,
-                dbr:Grey ,
-                dbr:Brown .
+                dbr:Grey .
 
 pk:ditto
   :hasAttribute :Body ,
                 :Eyes ,
                 :Mouth ;
-  :hasColour    dbr:Purple ,
-                dbr:Pink .
+  :hasColour    dbr:Purple .
 
 pk:eevee
   :hasAttribute :Head ,
@@ -1509,18 +1504,16 @@ pk:eevee
                 :Hair ,
                 :Legs ,
                 :Feet ,
+                :Mane ,
                 :Tail ;
   :hasColour    dbr:Brown ,
-                dbr:Cream_(colour) ,
-                dbr:Black ,
-                dbr:Pink .
+                dbr:Cream_(colour) .
 
 pk:vaporeon
   :hasAttribute :Head ,
                 :Body ,
                 :Eyes ,
                 :Mouth ,
-                :Nose ,
                 :Ears ,
                 :Fins ,
                 :Legs ,
@@ -1528,8 +1521,7 @@ pk:vaporeon
                 :Tail ;
   :hasColour    dbr:Blue ,
                 dbr:White ,
-                dbr:Cream_(colour) ,
-                dbr:Black .
+                dbr:Cream_(colour) .
 
 pk:jolteon
   :hasAttribute :Head ,
@@ -1541,11 +1533,11 @@ pk:jolteon
                 :Hair ,
                 :Legs ,
                 :Feet ,
+                :Mane ,
                 :Tail ;
   :hasColour    dbr:Yellow ,
                 dbr:White ,
-                dbr:Black ,
-                dbr:Pink .
+                dbr:Black .
 
 pk:flareon
   :hasAttribute :Head ,
@@ -1557,6 +1549,7 @@ pk:flareon
                 :Hair ,
                 :Legs ,
                 :Feet ,
+                :Mane ,
                 :Tail ;
   :hasColour    dbr:Orange ,
                 dbr:Yellow ,
@@ -1569,9 +1562,8 @@ pk:porygon
                 :Eyes ,
                 :Beak ,
                 :Legs ,
-                :Feet ,
                 :Tail ;
-  :hasColour    dbr:Pink ,
+  :hasColour    dbr:Red ,
                 dbr:Blue .
 
 pk:omanyte
@@ -1580,7 +1572,6 @@ pk:omanyte
                 :Tentacles ,
                 :BodyShell ;
   :hasColour    dbr:Blue ,
-                dbr:Yellow ,
                 dbr:Cream_(colour) .
 
 pk:omastar
@@ -1592,15 +1583,12 @@ pk:omastar
                 :BodyShell ,
                 :Horn ;
   :hasColour    dbr:Blue ,
-                dbr:Yellow ,
-                dbr:Cream_(colour) ,
-                dbr:Black .
+                dbr:Cream_(colour) .
 
 pk:kabuto
   :hasAttribute :Body ,
                 :Eyes ,
                 :Legs ,
-                :Feet ,
                 :BodyShell ;
   :hasColour    dbr:Brown ,
                 dbr:Yellow ,
@@ -1618,8 +1606,7 @@ pk:kabutops
                 :Tail ,
                 :BodyShell ;
   :hasColour    dbr:Brown ,
-                dbr:Grey ,
-                dbr:Black .
+                dbr:White .
 
 pk:aerodactyl
   :hasAttribute :Head ,
@@ -1635,9 +1622,7 @@ pk:aerodactyl
                 :Feet ,
                 :Tail ;
   :hasColour    dbr:Grey ,
-                dbr:Purple ,
-                dbr:Green ,
-                dbr:Black .
+                dbr:Purple .
 
 pk:snorlax
   :hasAttribute :Head ,
@@ -1653,8 +1638,7 @@ pk:snorlax
                 :Feet ;
   :hasColour    dbr:Blue ,
                 dbr:Cream_(colour) ,
-                dbr:Brown ,
-                dbr:Black .
+                dbr:Brown .
 
 pk:articuno
   :hasAttribute :Head ,
@@ -1662,12 +1646,14 @@ pk:articuno
                 :Eyes ,
                 :Beak ,
                 :Wings ,
+                :FlowingCrest ,
+                :Feathers ,
                 :Tail ,
                 :Legs ,
+                :Talons ,
                 :Feet ;
   :hasColour    dbr:Blue ,
                 dbr:White ,
-                dbr:Red ,
                 dbr:Grey .
 
 pk:zapdos
@@ -1676,13 +1662,14 @@ pk:zapdos
                 :Eyes ,
                 :Beak ,
                 :Wings ,
+                :Feathers ,
                 :Tail ,
                 :Legs ,
                 :Feet ,
-                :Claws ;
+                :Talons ;
   :hasColour    dbr:Yellow ,
                 dbr:Black ,
-                dbr:Orange ,
+                dbr:Grey ,
                 dbr:Brown .
 
 pk:moltres
@@ -1691,14 +1678,15 @@ pk:moltres
                 :Eyes ,
                 :Beak ,
                 :Wings ,
+                :Feathers ,
                 :Tail ,
                 :Legs ,
-                :Feet ;
+                :Feet ,
+                :Talons ,
+                :Flame ;
   :hasColour    dbr:Yellow ,
                 dbr:Orange ,
-                dbr:Red ,
-                dbr:Brown ,
-                dbr:Black .
+                dbr:Red .
 
 pk:dratini
   :hasAttribute :Head ,
@@ -1709,8 +1697,7 @@ pk:dratini
                 :Fins ,
                 :Tail ;
   :hasColour    dbr:Blue ,
-                dbr:White ,
-                dbr:Purple .
+                dbr:White .
 
 pk:dragonair
   :hasAttribute :Head ,
@@ -1733,28 +1720,28 @@ pk:dragonite
                 :Nose ,
                 :Horn ,
                 :Wings ,
+                :DragonWings ,
                 :Arms ,
                 :Fingers ,
+                :Antenna ,
                 :Claws ,
                 :Legs ,
                 :Feet ,
                 :Tail ;
   :hasColour    dbr:Orange ,
                 dbr:Cream_(colour) ,
-                dbr:Green ,
-                dbr:Blue ,
-                dbr:White .
+                dbr:Green .
 
 pk:mewtwo
   :hasAttribute :Head ,
                 :Body ,
                 :Eyes ,
+                :Ears ,
                 :Arms ,
                 :Fingers ,
                 :Legs ,
                 :Feet ,
-                :Tail ,
-                :Horn ;
+                :Tail ;
   :hasColour    dbr:Grey ,
                 dbr:Purple .
 
