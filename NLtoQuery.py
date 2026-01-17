@@ -1,94 +1,123 @@
 import spacy
 
-# LOAD NLP MODEL
+# LOAD MODEL
 try:
     nlp = spacy.load("en_core_web_md")
 except OSError:
-    print("Downloading model...")
+    print("Model not found. Downloading 'en_core_web_md'...")
     from spacy.cli import download
     download("en_core_web_md")
     nlp = spacy.load("en_core_web_md")
 
-# ONTOLOGY MAPPING
-# Keys = Natural Language Labels (from rdfs:label)
-# Values = Exact URI Suffixes from Ontology
+# ONTOLOGY MAPPINGS
+
+# BODY PARTS
 ONTOLOGY_MAP = {
-    # Main Body Parts
-    "main body": "MainBody",
-    "head": "Head",
-    "body": "Body",
-    "flame": "Flame",
-    "leaf": "Leaf",
-    "vines": "Vines",
-    "flower": "Flower",
-    "mushroom": "Mushroom",
-    "chrysalis": "Chrysalis",
-    "hair": "Hair",
-    "mane": "Mane",
-    "body shell": "BodyShell",
-    "body roughness": "BodyRoughness",
-    "body symbols": "BodySymbols",
-    "item": "Item",
-    "gem": "Gem",
+    # Main Body & Structural
+    "main body": "MainBody", "head": "Head", "body": "Body",
+    
+    # Main Body Attributes
+    "flame": "Flame", "leaf": "Leaf", "vines": "Vines", 
+    "flower": "Flower", "mushroom": "Mushroom", "chrysalis": "Chrysalis",
+    "hair": "Hair", "mane": "Mane", "body shell": "BodyShell", 
+    "shell": "BodyShell", "roughness": "BodyRoughness", 
+    "body roughness": "BodyRoughness", 
+    "body symbols": "BodySymbols", "item": "Item", "gem": "Gem",
 
     # Head Parts
-    "eyes": "Eyes",
-    "mouth": "Mouth",
-    "nose": "Nose",
-    "ears": "Ears",
-    "horn": "Horn",
-    "whiskers": "Whiskers",
-    "antenna": "Antenna",
-    "flowing crest": "FlowingCrest",
+    "eyes": "Eyes", "mouth": "Mouth", "nose": "Nose", "ears": "Ears",
+    "horn": "Horn", "whiskers": "Whiskers", "antenna": "Antenna",
+    "crest": "FlowingCrest", "flowing crest": "FlowingCrest",
 
-    # Mouth/Teeth Parts
-    "teeth": "Teeth",
-    "tongue": "Tongue",
-    "beak": "Beak",
-    "lips": "Lips",
+    # Mouth Parts
+    "teeth": "Teeth", "tongue": "Tongue", "beak": "Beak", "lips": "Lips",
     "fangs": "Fangs",
 
-    # Limbs and Appendages
-    "arms": "Arms",
-    "legs": "Legs",
-    "tail": "Tail",
-    "wings": "Wings",
-    "fins": "Fins",
-    "flippers": "Flippers",
-    "tentacles": "Tentacles",
-    "pinsers": "Pinsers",
-    "claws": "Claws",
-    
-    # Specific Parts
-    "fingers": "Fingers",
-    "feet": "Feet",
-    "talons": "Talons",
-    "feathers": "Feathers",
-    "dragon wings": "DragonWings",
-    "bug wings": "BugWings"
+    # Body Parts
+    "arms": "Arms", "legs": "Legs", "tail": "Tail", "wings": "Wings",
+    "fins": "Fins", "flippers": "Flippers", "tentacles": "Tentacles",
+    "pinsers": "Pinsers", "claws": "Claws",
+
+    # Sub-Parts
+    "fingers": "Fingers", "feet": "Feet", "talons": "Talons",
+    "feathers": "Feathers", "dragon wings": "DragonWings", "bug wings": "BugWings"
 }
 
-# Pre-compute vectors for speed
+# COLORS
+COLOR_MAP = {
+    "red": "Red", "crimson": "Red", "scarlet": "Red",
+    "blue": "Blue", "azure": "Blue", "navy": "Blue",
+    "green": "Green", "emerald": "Green",
+    "yellow": "Yellow", "gold": "Yellow",
+    "black": "Black", "dark": "Black",
+    "white": "White", "pale": "White",
+    "purple": "Purple", "violet": "Purple",
+    "pink": "Pink",
+    "brown": "Brown",
+    "grey": "Grey", "gray": "Grey", "silver": "Grey"
+}
+
+# HIERARCHY Child -> Parent
+PARENT_MAP = {
+    "Fangs": "Teeth", "Talons": "Feet", "Teeth": "Mouth", 
+    "Tongue": "Mouth", "Beak": "Mouth", "Lips": "Mouth", 
+    "Fingers": "Arms", "Feet": "Legs", "Feathers": "Wings", 
+    "DragonWings": "Wings", "BugWings": "Wings",
+    "Eyes": "Head", "Mouth": "Head", "Nose": "Head", 
+    "Ears": "Head", "Horn": "Head", "Whiskers": "Head", 
+    "Antenna": "Head", "FlowingCrest": "Head",
+    "Arms": "Body", "Legs": "Body", "Tail": "Body", 
+    "Wings": "Body", "Fins": "Body", "Flippers": "Body", 
+    "Tentacles": "Body", "Pinsers": "Body", "Claws": "Body",
+    "Head": "MainBody", "Body": "MainBody", "Flame": "MainBody", 
+    "Leaf": "MainBody", "Vines": "MainBody", "Flower": "MainBody", 
+    "Mushroom": "MainBody", "Chrysalis": "MainBody", "Hair": "MainBody", 
+    "Mane": "MainBody", "BodyShell": "MainBody", "BodyRoughness": "MainBody", 
+    "BodySymbols": "MainBody", "Item": "MainBody", "Gem": "MainBody"
+}
+
+# Pre-compute vectors for body parts only
 vocab_vectors = {label: nlp(label) for label in ONTOLOGY_MAP.keys()}
 
-def extract_ontology_terms(user_prompt, threshold=0.70):
+# FUNCTIONS
+
+def get_all_ancestors(uri):
+    ancestors = set()
+    current = uri
+    while current in PARENT_MAP:
+        parent = PARENT_MAP[current]
+        ancestors.add(parent)
+        current = parent
+    return ancestors
+
+def filter_redundant_parents(found_uris):
+    if not found_uris: return []
+    final_set = set(found_uris)
+    for uri in found_uris:
+        ancestors = get_all_ancestors(uri)
+        final_set -= ancestors
+    return list(final_set)
+
+def extract_entities(user_prompt, threshold=0.70):
     """
-    Matches user words to your Ontology Labels using vector similarity.
+    Returns TWO lists: Body Parts URIs and Color URIs.
     """
     doc = nlp(user_prompt.lower())
-    found_uris = set()
-    debug_log = []
+    found_parts = set()
+    found_colors = set()
 
-    # specific check for multi-word terms
-    for label, vector in vocab_vectors.items():
-        # Check exact phrase is in prompt
+    # Exact match
+    for label, uri in ONTOLOGY_MAP.items():
         if label in user_prompt.lower():
-            found_uris.add(ONTOLOGY_MAP[label])
-            debug_log.append(f"Exact Match: '{label}' -> :{ONTOLOGY_MAP[label]}")
+            found_parts.add(uri)
+
+    # Token analysis
+    for token in doc:
+        if token.text in COLOR_MAP:
+            found_colors.add(COLOR_MAP[token.text])
             continue
 
-    # Token-based similarity check for single words
-    for token in doc:
+        # Body parts with vector similarity
         if token.is_stop or token.pos_ not in ["NOUN", "PROPN", "ADJ"]:
             continue
         
@@ -96,26 +125,26 @@ def extract_ontology_terms(user_prompt, threshold=0.70):
         best_match_label = None
 
         for label, vector in vocab_vectors.items():
-            # semantic similarity
             score = token.similarity(vector)
             if score > best_score:
                 best_score = score
                 best_match_label = label
 
         if best_score > threshold:
-            uri = ONTOLOGY_MAP[best_match_label]
-            # Avoid duplicates if we already found it via exact match
-            if uri not in found_uris:
-                found_uris.add(uri)
-                debug_log.append(f"Vector Match: '{token.text}' ~ '{best_match_label}' ({best_score:.2f}) -> :{uri}")
+            found_parts.add(ONTOLOGY_MAP[best_match_label])
 
-    return list(found_uris), debug_log
+    # Hierarchy Filter
+    refined_parts = filter_redundant_parents(list(found_parts))
+    
+    return refined_parts, list(found_colors)
 
-def generate_sparql(uris):
-    if not uris:
-        return "No matching attributes found."
+def nl_to_sparql(user_prompt):
+    parts, colors = extract_entities(user_prompt)
+    
+    if not parts and not colors:
+        return None
 
-    # PREFIXES
+    # Base Query
     sparql = """
     PREFIX : <http://example.org/pokemon-ontology#>
     PREFIX poke: <https://pokemonkg.org/ontology#>
@@ -127,25 +156,27 @@ def generate_sparql(uris):
                  rdfs:label ?name .
     """
     
-    # constraints for every attribute found
-    for uri in uris:
-        sparql += f"    ?pokemon :hasAttribute :{uri} .\n"
+    # Body Part
+    for part in parts:
+        sparql += f"    ?pokemon :hasAttribute :{part} .\n"
+
+    # Color
+    for color in colors:
+        sparql += f"    ?pokemon :hasColour :{color} .\n"
 
     sparql += "}"
     return sparql
 
-# --- MAIN ---
+# TESTING
 if __name__ == "__main__":
-    # Test 1
-    prompt_1 = "I want a pokemon with wings and a tail"
-    print(f"\nUser: '{prompt_1}'")
-    uris_1, log_1 = extract_ontology_terms(prompt_1)
-    print("Debug:", log_1)
-    print(generate_sparql(uris_1))
-
-    # Test 2
-    prompt_2 = "Show me a dragon with big fangs and claws"
-    print(f"\nUser: '{prompt_2}'")
-    uris_2, log_2 = extract_ontology_terms(prompt_2)
-    print("Debug:", log_2)
-    print(generate_sparql(uris_2))
+    # Test: Mixed colors and body parts
+    prompt = "I want to find a red beast with dragon wings and green eyes."
+    print(f"User: '{prompt}'")
+    
+    query = nl_to_sparql(prompt)
+    
+    if query:
+        print("\n--- Generated SPARQL ---")
+        print(query)
+    else:
+        print("No matches found.")
