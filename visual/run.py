@@ -3,7 +3,7 @@ from query import PokemonQueryEngine
 from detection import YOLOPredictor
 
 color = PokemonColorDetectorHSV()
-detector = YOLOPredictor("visual/result/best.pt")
+detector = YOLOPredictor("result/yolo/best.pt")
 engine = PokemonQueryEngine("data/ontology.ttl", "data/entities.ttl")
 
 ANNOTATION_TO_ONTOLOGY = {
@@ -62,9 +62,9 @@ def ontologically_known(attributes):
     return result
 
 
-def get_pokemon_list(path: str):
-    colors, _ = color.detect_colors(path, min_ratio=0.3)
-    detections = detector.predict(path, conf=0.4)
+def get_pokemon_list(path: str, min_color_ratio=0.3, min_detection_conf=0.4):
+    colors, _ = color.detect_colors(path, min_ratio=min_color_ratio)
+    detections = detector.predict(path, conf=min_detection_conf)
     attributes = set([pred['label'] for pred in detections[0]])
     result = engine.find_with_all(ontologically_known(attributes), colors)
     return result, colors, attributes

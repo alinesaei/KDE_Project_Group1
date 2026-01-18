@@ -48,15 +48,20 @@ class PokemonColorDetectorHSV:
         h, s, v = rgb_to_hsv(r_, g_, b_)
         h_deg = h * 360
 
-        # Very dark → Black
+        # Very dark > Black
         if v < self.value_black_thresh:
             return "Black"
 
-        # Low saturation → Beige / Gray
+        # Low saturation > Beige / Cream / Gray
         if s < self.saturation_thresh:
+            if v > 0.9 and 30 <= h_deg <= 70:
+                return "Cream"
+
             if v > 0.85:
                 return "Beige"
+
             return "Gray"
+
 
         # Hue-based color
         for color, ranges in self.HUE_RANGES.items():
