@@ -168,7 +168,7 @@ pk:pidgey
     :hasAttribute :FlowingCrest;
     :hasAttribute :Talons;
     :hasAttribute :Tail;
-    :hasAttribute :FeatherWings;
+    :hasAttribute :FeatheredWings;
     :hasColour dbr:Brown, dbr:Beige, dbr:Red.
 
 pk:pidgeotto
@@ -176,7 +176,7 @@ pk:pidgeotto
     :hasAttribute :Beak;
     :hasAttribute :FlowingCrest;
     :hasAttribute :Talons;
-    :hasAttribute :FeatherWings;
+    :hasAttribute :FeatheredWings;
     :hasAttribute :Tail;
     :hasColour dbr:Brown, dbr:Beige, dbr:Red.
 
@@ -185,7 +185,7 @@ pk:pidgeot
     :hasAttribute :Beak;
     :hasAttribute :FlowingCrest;
     :hasAttribute :Talons;
-    :hasAttribute :FeatherWings;
+    :hasAttribute :FeatheredWings;
     :hasAttribute :Tail;
     :hasColour dbr:Brown, dbr:Beige, dbr:Red.
 
@@ -220,7 +220,7 @@ pk:spearow
     :hasAttribute :FlowingCrest;
     :hasAttribute :Talons;
     :hasAttribute :Tail;
-    :hasAttribute :FeatherWings;
+    :hasAttribute :FeatheredWings;
     :hasColour dbr:Brown, dbr:Beige, dbr:Red.
 
 pk:fearow
@@ -230,7 +230,7 @@ pk:fearow
     :hasAttribute :FlowingCrest;
     :hasAttribute :Talons;
     :hasAttribute :Tail;
-    :hasAttribute :FeatherWings;
+    :hasAttribute :FeatheredWings;
     :hasColour dbr:Brown, dbr:Beige, dbr:Red.
 
 pk:ekans
@@ -844,7 +844,7 @@ pk:farfetchd :hasAttribute :Head ,
                              :Mouth ,
                              :Beak ,
                              :Wings ,
-                             :Feathers ,
+                             :FeatheredWings ,
                              :Feet ,
                              :Item ;
              :hasColour   dbr:Brown ,
@@ -874,7 +874,7 @@ pk:dodrio     :hasAttribute :Head ,
                              :Beak ,
                              :Talons ,
                              :Wings ,
-                             :Feathers ;
+                             :FeatheredWings ;
              :hasColour   dbr:Brown ,
                              dbr:Black ,
                              <http://dbpedia.org/resource/Cream_(colour)> ,
@@ -1645,7 +1645,7 @@ pk:articuno
                 :Beak ,
                 :Wings ,
                 :FlowingCrest ,
-                :Feathers ,
+                :FeatheredWings ,
                 :Tail ,
                 :Legs ,
                 :Talons ,
@@ -1660,7 +1660,7 @@ pk:zapdos
                 :Eyes ,
                 :Beak ,
                 :Wings ,
-                :Feathers ,
+                :FeatheredWings ,
                 :Tail ,
                 :Legs ,
                 :Feet ,
@@ -1676,7 +1676,7 @@ pk:moltres
                 :Eyes ,
                 :Beak ,
                 :Wings ,
-                :Feathers ,
+                :FeatheredWings ,
                 :Tail ,
                 :Legs ,
                 :Feet ,

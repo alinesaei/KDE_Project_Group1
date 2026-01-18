@@ -19,19 +19,37 @@
     rdfs:label "structural part of"@en ;
     rdfs:comment "Indicates that one anatomical feature is a structural part of another."@en ;
     rdfs:domain :BodyPart ;
-    rdfs:range :BodyPart .
+    rdfs:range :BodyPart ;
+    rdf:type owl:AsymmetricProperty ;
+    rdf:type owl:IrreflexiveProperty .
+    
+:hasStructuralPart a owl:ObjectProperty ;
+    rdfs:label "has structural part"@en ;
+    rdfs:comment "Indicates that a body part has another as a structural component."@en ;
+    rdfs:domain :BodyPart ;
+    rdfs:range :BodyPart ;
+    owl:inverseOf :structuralPartOf .
 
 :hasAttribute a owl:ObjectProperty ;
     rdfs:label "has attribute"@en ;
     rdfs:comment "Relates a pokemon to its attributes."@en ;
     rdfs:domain poke:Species ;
-    rdfs:range :BodyPart .
+    rdfs:range :BodyPart ;
+    owl:propertyChainAxiom ( :hasAttribute :structuralPartOf ) .
+
 
 :hasColour a owl:ObjectProperty ;
     rdfs:label "has colour"@en ;
     rdfs:comment "Relates a pokemon to its colour."@en ;
     rdfs:domain  poke:Species ;
-    rdfs:range owl:Thing .
+    rdfs:range dbr:Color .
+
+[] a owl:AllDisjointIndividuals ;
+   owl:members ( :DragonWings :BugWings :FeatheredWings ) .
+
+:Wings owl:disjointWith :Fins .
+:Arms owl:disjointWith :Tentacles .
+
 
 # 0 - Main Body
 
@@ -251,7 +269,7 @@
     :structuralPartOf :Feet .   
 
 # 3 - Wing Parts
-:Feathers rdf:type :BodyPart ;
+:FeatheredWings rdf:type :BodyPart ;
     rdfs:label "feathers"@en ;
     rdfs:comment "The feathers of a Pokémon."@en ;
     :structuralPartOf :Wings . 
