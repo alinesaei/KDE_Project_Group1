@@ -44,11 +44,6 @@
     rdfs:domain  poke:Species ;
     rdfs:range dbr:Color .
 
-[] a owl:AllDisjointIndividuals ;
-   owl:members ( :DragonWings :BugWings :FeatheredWings ) .
-
-:Wings owl:disjointWith :Fins .
-:Arms owl:disjointWith :Tentacles .
 
 
 # 0 - Main Body
