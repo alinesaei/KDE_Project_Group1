@@ -98,7 +98,7 @@ def filter_redundant_parents(found_uris):
         final_set -= ancestors
     return list(final_set)
 
-def extract_entities(user_prompt, threshold=0.70):
+def extract_entities(user_prompt, threshold=0.85):
     """
     Returns TWO lists: Body Parts URIs and Color URIs.
     """
