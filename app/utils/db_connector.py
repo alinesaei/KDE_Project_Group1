@@ -1,53 +1,106 @@
+# app/utils/db_connector.py
 from SPARQLWrapper import SPARQLWrapper, JSON
 import pandas as pd
-import random
+import streamlit as st
+import random  # <--- CRITICAL FIX: Prevents crash in Details View
 
+# CHECK: Is this your correct local GraphDB URL?
 ENDPOINT_URL = "http://localhost:7200/repositories/pokemon-repo"
 
+# The prefixes match your provided files
 PREFIXES = """
     PREFIX : <http://example.org/pokemon-ontology#>
     PREFIX pk: <https://pokemonkg.org/instance/pokemon#>
+    PREFIX poke: <https://pokemonkg.org/ontology#> 
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-    PREFIX dbr: <http://dbpedia.org/resource/>
 """
 
 
-def get_gen1_data(body_part="Any", color="Any"):
+def get_gen1_data(body_part="Any", color="Any", poke_type="Any", habitat="Any"):
     """
-    Fetches Pokemon list with OPTIONAL filters for Body Part and Color.
+    DECOUPLED VERSION:
+    Searches for Generation, Type, and Habitat in SEPARATE Graphs.
+    This fixes the issue where Type data is in a different 'box' than the Gen 1 list.
     """
     sparql = SPARQLWrapper(ENDPOINT_URL)
     sparql.setReturnFormat(JSON)
 
     query = PREFIXES + """
-    SELECT DISTINCT ?pokemon ?name ?partName ?color
+    SELECT DISTINCT ?name ?img ?color
     WHERE {
-        ?pokemon :hasAttribute ?part .
-        ?part rdfs:label ?partName .
-
-        # Name Processing
-        BIND(REPLACE(STR(?pokemon), "^.*#", "") AS ?slug)
-        BIND(CONCAT(UCASE(SUBSTR(?slug, 1, 1)), SUBSTR(?slug, 2)) AS ?name)
-
-        # Optional Color
-        OPTIONAL { 
-            ?pokemon :hasColour ?colorURI . 
-            BIND(REPLACE(STR(?colorURI), "^.*resource/", "") AS ?color)
+        # ==========================================
+        # 1. ANATOMY (Universal Search)
+        # ==========================================
+        {
+            ?pokemonA :hasAttribute ?part .
+            ?part rdfs:label ?partName .
+            OPTIONAL { ?pokemonA :hasColour ?colorURI . }
         }
-    """
+        UNION
+        {
+            GRAPH ?gAnatomy {
+                ?pokemonA :hasAttribute ?part .
+                ?part rdfs:label ?partName .
+                OPTIONAL { ?pokemonA :hasColour ?colorURI . }
+            }
+        }
 
-    # FILTER 1: Ontology Reasoning (Transitive)
+        BIND(LCASE(REPLACE(STR(?pokemonA), "^.*[#/]", "")) AS ?slugA)
+        BIND(CONCAT(UCASE(SUBSTR(?slugA, 1, 1)), SUBSTR(?slugA, 2)) AS ?name)
+        BIND(CONCAT("https://img.pokemondb.net/artwork/", ?slugA, ".jpg") AS ?img)
+        BIND(REPLACE(STR(?colorURI), "^.*resource/", "") AS ?color)
+
+        # ==========================================
+        # 2. GENERATION 1 ANCHOR (Box A)
+        # ==========================================
+        # We find the list of Gen 1 Pokemon in whichever graph they live
+        GRAPH ?gGen {
+            <https://pokemonkg.org/instance/generation/i> poke:featuresSpecies ?pokemonB .
+        }
+        BIND(LCASE(REPLACE(STR(?pokemonB), "^.*[#/]", "")) AS ?slugB)
+
+        # ==========================================
+        # 3. FILTERS (Search Any Box)
+        # ==========================================
+        """
+
+    # --- TYPE FILTER (Box B) ---
+    if poke_type and poke_type != "Any":
+        query += f"""
+        GRAPH ?gType {{
+            ?pokemonB poke:hasType ?typeURI .
+        }}
+        # Robust Match: Ignores "PokéType:" vs "PokéType_" and Case
+        FILTER(CONTAINS(LCASE(STR(?typeURI)), "{poke_type.strip().lower()}"))
+        """
+
+    # --- HABITAT FILTER (Box C) ---
+    if habitat and habitat != "Any":
+        safe_hab = habitat.replace(" ", "")
+        query += f"""
+        GRAPH ?gHab {{
+            ?pokemonB poke:foundIn ?habURI .
+        }}
+        FILTER(CONTAINS(LCASE(STR(?habURI)), "{safe_hab.lower()}"))
+        """
+
+    query += """
+        # ==========================================
+        # 4. MERGE & ANATOMY FILTERS
+        # ==========================================
+        FILTER(?slugA = ?slugB)
+
+        # Body Part
+        """
     if body_part and body_part != "Any":
         query += f"""
         ?part :structuralPartOf* ?category .
         ?category rdfs:label "{body_part}"@en .
         """
 
-    # FILTER 2: Color
+    # Color
     if color and color != "Any":
-        query += f"""
-        FILTER(?color = "{color}") .
-        """
+        query += f'FILTER(?color = "{color}") .'
 
     query += "}"
 
@@ -59,34 +112,46 @@ def get_gen1_data(body_part="Any", color="Any"):
         for res in results["results"]["bindings"]:
             data.append({
                 "name": res["name"]["value"],
-                "feature": res["partName"]["value"],
+                "img": res["img"]["value"],
                 "color": res.get("color", {}).get("value", "Unknown"),
-                "img": f"https://img.pokemondb.net/artwork/{res['name']['value'].lower()}.jpg"
             })
 
-        if not data:
-            return pd.DataFrame(columns=["name", "feature", "color", "img"])
-
-        return pd.DataFrame(data)
+        return pd.DataFrame(data).drop_duplicates(subset=['name'])
 
     except Exception as e:
         print(f"GraphDB Error: {e}")
-        return pd.DataFrame(columns=["name", "feature", "color", "img"])
+        return pd.DataFrame(columns=["name", "img", "color"])
+# --- KEEP THE REST OF YOUR FUNCTIONS (get_filter_options, etc.) EXACTLY AS THEY WERE ---
+# Just pasting the critical ones below for completeness if you need them:
+
+def get_filter_options(category):
+    sparql = SPARQLWrapper(ENDPOINT_URL)
+    sparql.setReturnFormat(JSON)
+    # Search EVERYWHERE for options too
+    if category == "Type":
+        query = PREFIXES + "SELECT DISTINCT ?label WHERE { { ?t a poke:Type ; rdfs:label ?label } UNION { GRAPH ?g { ?t a poke:Type ; rdfs:label ?label } } FILTER(lang(?label)='en') } ORDER BY ?label"
+    elif category == "Habitat":
+        query = PREFIXES + "SELECT DISTINCT ?label WHERE { { ?h a poke:Habitat ; rdfs:label ?label } UNION { GRAPH ?g { ?h a poke:Habitat ; rdfs:label ?label } } FILTER(lang(?label)='en') } ORDER BY ?label"
+    else:
+        return []
+
+    sparql.setQuery(query)
+    try:
+        results = sparql.query().convert()
+        return [r["label"]["value"] for r in results["results"]["bindings"]]
+    except:
+        return []
 
 
 def get_pokemon_details(pokemon_name):
-    """
-    Fetches specific details for ONE Pokemon for the Details View.
-    """
-
     sparql = SPARQLWrapper(ENDPOINT_URL)
     sparql.setReturnFormat(JSON)
-
-    # Query to get ALL attributes for this specific pokemon
+    # Search EVERYWHERE for details
     query = PREFIXES + f"""
     SELECT DISTINCT ?partName WHERE {{
-        pk:{pokemon_name.lower()} :hasAttribute ?part .
-        ?part rdfs:label ?partName .
+        {{ pk:{pokemon_name.lower()} :hasAttribute ?part . ?part rdfs:label ?partName . }}
+        UNION
+        {{ GRAPH ?g {{ pk:{pokemon_name.lower()} :hasAttribute ?part . ?part rdfs:label ?partName . }} }}
     }}
     """
     sparql.setQuery(query)
@@ -97,18 +162,17 @@ def get_pokemon_details(pokemon_name):
     except:
         pass
 
-    # Return a dictionary formatted for interface
     return {
         "name": pokemon_name,
         "img": f"https://img.pokemondb.net/artwork/{pokemon_name.lower()}.jpg",
         "features": features,
         "stats": {"HP": random.randint(50, 100), "Attack": random.randint(50, 100), "Defense": random.randint(50, 100)},
-        "relations": [
-            {"source": pokemon_name, "target": f, "label": "hasAttribute"} for f in features
-        ]
+        "relations": [{"source": pokemon_name, "target": f, "label": "hasAttribute"} for f in features]
     }
 
 
+# ... (Include get_ontology_options, get_ontology_hierarchy, get_feature_counts, etc. from your previous file) ...
+# Just make sure to define them or leave them if they are already there.
 def get_ontology_options():
     sparql = SPARQLWrapper(ENDPOINT_URL)
     sparql.setReturnFormat(JSON)
@@ -218,3 +282,81 @@ def execute_custom_sparql(query_string):
         print(f"SPARQL Error: {e}")
         return pd.DataFrame(columns=["name", "img", "color"])
 
+
+def get_multiple_pokemon_details(names_list):
+    """
+    Fetches details for a list of Pokemon names.
+    """
+    data = []
+    for name in names_list:
+        details = get_pokemon_details(name)
+        if details:
+            data.append(details)
+    return data
+
+
+def get_graph_stats():
+    """
+    Fetches high-level metrics for the dashboard.
+    """
+    sparql = SPARQLWrapper(ENDPOINT_URL)
+    sparql.setReturnFormat(JSON)
+
+    # We run 3 sub-queries to get counts
+    query = PREFIXES + """
+    SELECT 
+      (COUNT(DISTINCT ?s) AS ?pokemonCount) 
+      (COUNT(DISTINCT ?attr) AS ?attrCount)
+      (COUNT(*) AS ?tripleCount)
+    WHERE {
+        ?s :hasAttribute ?attr .
+    }
+    """
+    sparql.setQuery(query)
+    try:
+        results = sparql.query().convert()
+        res = results["results"]["bindings"][0]
+        return {
+            "pokemon": res["pokemonCount"]["value"],
+            "attributes": res["attrCount"]["value"],
+            "triples": res["tripleCount"]["value"]
+        }
+    except:
+        return {"pokemon": 0, "attributes": 0, "triples": 0}
+
+
+def get_attribute_correlations():
+    """
+    Finds which attributes appear together most often.
+    (e.g., Wings + Beak)
+    """
+    sparql = SPARQLWrapper(ENDPOINT_URL)
+    sparql.setReturnFormat(JSON)
+    query = PREFIXES + """
+    SELECT ?a1Label ?a2Label (COUNT(?s) AS ?count)
+    WHERE {
+        ?s :hasAttribute ?a1 .
+        ?s :hasAttribute ?a2 .
+        ?a1 rdfs:label ?a1Label .
+        ?a2 rdfs:label ?a2Label .
+
+        FILTER(lang(?a1Label) = "en" && lang(?a2Label) = "en")
+        FILTER(STR(?a1) < STR(?a2)) # Avoid duplicates (A-B vs B-A) and self-matches
+    }
+    GROUP BY ?a1Label ?a2Label
+    ORDER BY DESC(?count)
+    LIMIT 50
+    """
+    sparql.setQuery(query)
+    try:
+        results = sparql.query().convert()
+        data = []
+        for r in results["results"]["bindings"]:
+            data.append({
+                "Attribute A": r["a1Label"]["value"],
+                "Attribute B": r["a2Label"]["value"],
+                "Co-occurrence": int(r["count"]["value"])
+            })
+        return pd.DataFrame(data)
+    except:
+        return pd.DataFrame()
