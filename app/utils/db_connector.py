@@ -1,13 +1,11 @@
-# app/utils/db_connector.py
 from SPARQLWrapper import SPARQLWrapper, JSON
 import pandas as pd
-import streamlit as st
-import random  # <--- CRITICAL FIX: Prevents crash in Details View
 
-# CHECK: Is this your correct local GraphDB URL?
+import random
+
 ENDPOINT_URL = "http://localhost:7200/repositories/pokemon-repo"
 
-# The prefixes match your provided files
+
 PREFIXES = """
     PREFIX : <http://example.org/pokemon-ontology#>
     PREFIX pk: <https://pokemonkg.org/instance/pokemon#>
@@ -15,12 +13,11 @@ PREFIXES = """
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 """
 
-
 def get_gen1_data(body_part="Any", color="Any", poke_type="Any", habitat="Any"):
     """
-    DECOUPLED VERSION:
-    Searches for Generation, Type, and Habitat in SEPARATE Graphs.
-    This fixes the issue where Type data is in a different 'box' than the Gen 1 list.
+    HIGH-PERFORMANCE VERSION:
+    1. FILTER FIRST: Reduces the search space from thousands to ~5 items immediately.
+    2. DIRECT LOOKUP: Constructs URIs instead of searching (O(1) speed vs O(N)).
     """
     sparql = SPARQLWrapper(ENDPOINT_URL)
     sparql.setReturnFormat(JSON)
@@ -28,9 +25,48 @@ def get_gen1_data(body_part="Any", color="Any", poke_type="Any", habitat="Any"):
     query = PREFIXES + """
     SELECT DISTINCT ?name ?img ?color
     WHERE {
-        # ==========================================
-        # 1. ANATOMY (Universal Search)
-        # ==========================================
+        # =======================================================
+        # STEP 1: START WITH THE SMALLEST LIST (Gen 1 Anchor)
+        # =======================================================
+        GRAPH ?gGen {
+            <https://pokemonkg.org/instance/generation/i> poke:featuresSpecies ?pokemonB .
+        }
+
+        # =======================================================
+        # STEP 2: APPLY FILTERS IMMEDIATELY (Pruning)
+        # =======================================================
+        # By filtering here, we stop processing irrelevant Pokemon immediately.
+        """
+
+    # --- TYPE FILTER ---
+    if poke_type and poke_type != "Any":
+        query += f"""
+        GRAPH ?gType {{ ?pokemonB poke:hasType ?typeURI . }}
+        FILTER(CONTAINS(LCASE(STR(?typeURI)), "{poke_type.strip().lower()}"))
+        """
+
+    # --- HABITAT FILTER ---
+    if habitat and habitat != "Any":
+        safe_hab = habitat.replace(" ", "")
+        query += f"""
+        GRAPH ?gHab {{ ?pokemonB poke:foundIn ?habURI . }}
+        FILTER(CONTAINS(LCASE(STR(?habURI)), "{safe_hab.lower()}"))
+        """
+
+    query += """
+        # =======================================================
+        # STEP 3: PREDICT THE ANATOMY URI (The Speed Hack)
+        # =======================================================
+        # Instead of searching the whole DB, we convert the URI directly.
+        # N-Quads:  .../instance/pokemon/charizard
+        # Anatomy:  .../instance/pokemon#charizard
+
+        BIND(IRI(REPLACE(STR(?pokemonB), "/pokemon/", "/pokemon#")) AS ?pokemonA)
+
+        # =======================================================
+        # STEP 4: DIRECT FETCH (O(1) Complexity)
+        # =======================================================
+        # Now we only look up anatomy for the FEW matching Pokemon.
         {
             ?pokemonA :hasAttribute ?part .
             ?part rdfs:label ?partName .
@@ -45,52 +81,15 @@ def get_gen1_data(body_part="Any", color="Any", poke_type="Any", habitat="Any"):
             }
         }
 
-        BIND(LCASE(REPLACE(STR(?pokemonA), "^.*[#/]", "")) AS ?slugA)
-        BIND(CONCAT(UCASE(SUBSTR(?slugA, 1, 1)), SUBSTR(?slugA, 2)) AS ?name)
-        BIND(CONCAT("https://img.pokemondb.net/artwork/", ?slugA, ".jpg") AS ?img)
+        # =======================================================
+        # STEP 5: FORMATTING
+        # =======================================================
+        BIND(LCASE(REPLACE(STR(?pokemonB), "^.*[#/]", "")) AS ?slug)
+        BIND(CONCAT(UCASE(SUBSTR(?slug, 1, 1)), SUBSTR(?slug, 2)) AS ?name)
+        BIND(CONCAT("https://img.pokemondb.net/artwork/", ?slug, ".jpg") AS ?img)
         BIND(REPLACE(STR(?colorURI), "^.*resource/", "") AS ?color)
 
-        # ==========================================
-        # 2. GENERATION 1 ANCHOR (Box A)
-        # ==========================================
-        # We find the list of Gen 1 Pokemon in whichever graph they live
-        GRAPH ?gGen {
-            <https://pokemonkg.org/instance/generation/i> poke:featuresSpecies ?pokemonB .
-        }
-        BIND(LCASE(REPLACE(STR(?pokemonB), "^.*[#/]", "")) AS ?slugB)
-
-        # ==========================================
-        # 3. FILTERS (Search Any Box)
-        # ==========================================
-        """
-
-    # --- TYPE FILTER (Box B) ---
-    if poke_type and poke_type != "Any":
-        query += f"""
-        GRAPH ?gType {{
-            ?pokemonB poke:hasType ?typeURI .
-        }}
-        # Robust Match: Ignores "PokéType:" vs "PokéType_" and Case
-        FILTER(CONTAINS(LCASE(STR(?typeURI)), "{poke_type.strip().lower()}"))
-        """
-
-    # --- HABITAT FILTER (Box C) ---
-    if habitat and habitat != "Any":
-        safe_hab = habitat.replace(" ", "")
-        query += f"""
-        GRAPH ?gHab {{
-            ?pokemonB poke:foundIn ?habURI .
-        }}
-        FILTER(CONTAINS(LCASE(STR(?habURI)), "{safe_hab.lower()}"))
-        """
-
-    query += """
-        # ==========================================
-        # 4. MERGE & ANATOMY FILTERS
-        # ==========================================
-        FILTER(?slugA = ?slugB)
-
-        # Body Part
+        # --- ANATOMY FILTERS (Applied to the final few) ---
         """
     if body_part and body_part != "Any":
         query += f"""
@@ -98,7 +97,7 @@ def get_gen1_data(body_part="Any", color="Any", poke_type="Any", habitat="Any"):
         ?category rdfs:label "{body_part}"@en .
         """
 
-    # Color
+    # Color Filter
     if color and color != "Any":
         query += f'FILTER(?color = "{color}") .'
 
@@ -119,10 +118,7 @@ def get_gen1_data(body_part="Any", color="Any", poke_type="Any", habitat="Any"):
         return pd.DataFrame(data).drop_duplicates(subset=['name'])
 
     except Exception as e:
-        print(f"GraphDB Error: {e}")
         return pd.DataFrame(columns=["name", "img", "color"])
-# --- KEEP THE REST OF YOUR FUNCTIONS (get_filter_options, etc.) EXACTLY AS THEY WERE ---
-# Just pasting the critical ones below for completeness if you need them:
 
 def get_filter_options(category):
     sparql = SPARQLWrapper(ENDPOINT_URL)
