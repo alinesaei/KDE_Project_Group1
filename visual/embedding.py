@@ -1,5 +1,6 @@
 import numpy as np
 from rdflib import Graph, Namespace, URIRef
+from owlrl import DeductiveClosure, OWLRL_Semantics
 from sklearn.metrics.pairwise import cosine_similarity
 
 from pyrdf2vec import RDF2VecTransformer
@@ -54,6 +55,8 @@ class PokemonRDF2VecModel:
 
         self._load_graph(ontology_paths, kg_paths)
 
+        self.reason() # OWL RL inferred triples
+
     def _load_graph(self, ontology_paths, kg_paths):
         for path in ontology_paths:
             self.graph.parse(path)
@@ -61,24 +64,28 @@ class PokemonRDF2VecModel:
             self.graph.parse(path)
         print(f"Triples loaded: {len(self.graph)}")
 
-    def materialize_anatomy(self):
-        added = True
-        while added:
-            added = False
-            triples = list(
-                self.graph.triples(
-                    (None, self.onto_ns.structuralPartOf, None)
-                )
-            )
-            for a, _, b in triples:
-                for _, _, c in self.graph.triples(
-                    (b, self.onto_ns.structuralPartOf, None)
-                ):
-                    if (a, self.onto_ns.structuralPartOf, c) not in self.graph:
-                        self.graph.add((a, self.onto_ns.structuralPartOf, c))
-                        added = True
+    def reason(self):
+        DeductiveClosure(OWLRL_Semantics).expand(self.graph)
+        print(f"After reasoning: {len(self.graph)}")
 
-        print(f"After materialization: {len(self.graph)}")
+    # def materialize_anatomy(self):
+    #     added = True
+    #     while added:
+    #         added = False
+    #         triples = list(
+    #             self.graph.triples(
+    #                 (None, self.onto_ns.structuralPartOf, None)
+    #             )
+    #         )
+    #         for a, _, b in triples:
+    #             for _, _, c in self.graph.triples(
+    #                 (b, self.onto_ns.structuralPartOf, None)
+    #             ):
+    #                 if (a, self.onto_ns.structuralPartOf, c) not in self.graph:
+    #                     self.graph.add((a, self.onto_ns.structuralPartOf, c))
+    #                     added = True
+
+    #     print(f"After materialization: {len(self.graph)}")
 
     def _get_pokemon_entities(self):
         return sorted({
@@ -171,7 +178,7 @@ class PokemonRDF2VecModel:
 
         return np.sum(vecs, axis=0) / sum(weights)
     
-    def predict(self, detected_attributes, top_k=10, verbose=True):
+    def predict(self, detected_attributes, top_k=10):
         query_vec = self.build_query_vector(detected_attributes)
 
         scores = cosine_similarity(
@@ -184,9 +191,5 @@ class PokemonRDF2VecModel:
             key=lambda x: x[1],
             reverse=True
         )[:top_k]
-
-        if verbose:
-            for e, s in ranked:
-                print(e.split("#")[-1], round(float(s), 3))
 
         return ranked

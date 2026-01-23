@@ -119,11 +119,25 @@ class PokemonQueryEngine:
 
     def has_attribute(self, pokemon, attribute):
         query = f"""
+        PREFIX pk: <https://pokemonkg.org/instance/pokemon#>
         PREFIX ex: <http://example.org/pokemon-ontology#>
 
         ASK {{
-          ex:{pokemon} ex:hasAttribute ?part .
+          pk:{pokemon} ex:hasAttribute ?part .
           ?part ex:structuralPartOf* ex:{attribute} .
+        }}
+        """
+        return bool(self.graph.query(query))
+    
+
+    def has_color(self, pokemon, color):
+        query = f"""
+        PREFIX pk: <https://pokemonkg.org/instance/pokemon#>
+        PREFIX ex: <http://example.org/pokemon-ontology#>
+        PREFIX dbr: <http://dbpedia.org/resource/>
+
+        ASK {{
+          pk:{pokemon} ex:hasColour dbr:{color} .
         }}
         """
         return bool(self.graph.query(query))
