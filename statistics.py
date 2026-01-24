@@ -28,9 +28,13 @@ def count_query(g, query):
 # Overall dataset statistics
 # ------------------------------
 
-g = load_graph("data/pokemon_visualization.ttl")
+ontology_graph = rdflib.Graph()
+ontology_graph.parse("ontology/pokemon_anatomy.ttl", format="turtle")
 
-print("\n--- Overall dataset statistics ---")
+ontology_triples = len(ontology_graph)
+
+g = ontology_graph
+g.parse("data/pokemon_visualization.ttl", format="turtle")
 
 num_pokemon = count_query(g, PREFIXES + """
 SELECT (COUNT(DISTINCT ?s) AS ?count)
@@ -80,10 +84,12 @@ total_attributes = stored_attributes + inferred_attributes
 inference_ratio = (inferred_attributes / total_attributes * 100) if total_attributes else 0
 total_triples = stored_attributes + stored_colours + inferred_attributes
 
-print(f"Triples in graph:               {len(g)}")
-print(f"Pokemon:                        {num_pokemon}")
+print("\n--- Overall dataset statistics ---")
+print(f"Triples in ontology graph:      {ontology_triples}")
+print(f"Triples in visualization graph: {len(g) - ontology_triples}")
 print(f"Body-part classes:              {num_classes}")
 print(f"Properties used:                {num_properties}")
+print(f"Pokémon:                        {num_pokemon}")
 print(f"Colours:                        {stored_colours}")
 print(f"Explicit attributes:            {stored_attributes}")
 print(f"Inferred attributes:            {inferred_attributes}")
