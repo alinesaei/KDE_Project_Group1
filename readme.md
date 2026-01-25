@@ -57,6 +57,9 @@ This project is a **Semantic Web Application** that combines a Knowledge Graph (
 ### 1. Semantic Search
 * **Location:** Home Page -> "Standard Filters" & "AI Search".
 * **Description:** Search the Knowledge Graph using natural language (e.g., *"I want dragon wings"*).
+> **See it in action:**
+> ![Visual Search Results](asset/Screenshot 2026-01-25 at 10.04.33 PM.png)
+> ![Visual Search Results](asset/Screenshot 2026-01-25 at 10.05.57 PM.png)
 
 ### 2. 📊 Knowledge Statistics
 * **Location:** Sidebar / Stats Page.
@@ -66,7 +69,8 @@ This project is a **Semantic Web Application** that combines a Knowledge Graph (
 ### 3. 📷 Visual Search (Computer Vision)
 * **Location:** Home Page -> "Visual Search" Tab.
 * **Description:** Upload an image to detect features (e.g., "Wings", "Red") using **YOLOv8** and **HSV Color Detection**. The system bridges these detected tags to the Knowledge Graph to find similar Pokémon.
+> **See it in action:**
+> ![Visual Search Results](asset/Screenshot 2026-01-25 at 9.32.03 PM.png)
 * **🧪 Evaluation Note:** For the detailed testing, validation, and accuracy results of the Computer Vision models, please refer to the Jupyter Notebook:
-    > **`app/utils/visual/main.ipynb`** 
-
+    > **`app/utils/visual/main.ipynb`**
 ---
