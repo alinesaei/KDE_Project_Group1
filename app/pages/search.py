@@ -1,10 +1,135 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+from SPARQLWrapper import SPARQLWrapper, JSON
 from streamlit_agraph import agraph, Node, Edge, Config
 from streamlit_option_menu import option_menu
 import sys
 import os
+from utils.visual_bridge import process_image, VISION_AVAILABLE
+
+
+def execute_visual_sparql(query):
+    """
+    preserves 'score' and 'matched_features'.
+    """
+    endpoint = "http://localhost:7200/repositories/pokemon-repo"
+    sparql = SPARQLWrapper(endpoint)
+    sparql.setReturnFormat(JSON)
+    sparql.setQuery(query)
+
+    try:
+        results = sparql.query().convert()
+        data = []
+        for res in results["results"]["bindings"]:
+            row = {}
+            # capture ALL variables
+            for var in res:
+                row[var] = res[var]["value"]
+
+            if "pokemon" in row:
+                clean_name = row["pokemon"].split("/")[-1].split("#")[-1]  # Handle URI cleanup
+                row["name"] = clean_name.capitalize()
+                row["img"] = f"https://img.pokemondb.net/artwork/{clean_name.lower()}.jpg"
+
+            data.append(row)
+
+        return pd.DataFrame(data)
+    except Exception as e:
+        print(f"SPARQL Error: {e}")
+        return pd.DataFrame()
+def execute_visual_ranking_query(terms):
+
+    if not terms:
+        return pd.DataFrame()
+
+    # color mapping
+    COLOR_EXPANSION = {
+        "Red": ['"Red"', '"Orange"', '"Pink"', '"DarkRed"'],
+        "Orange": ['"Orange"', '"Red"', '"Yellow"', '"Brown"'],
+        "Yellow": ['"Yellow"', '"Orange"', '"Gold"', '"Cream_(colour)"'],
+        "Green": ['"Green"', '"Olive"', '"Lime"'],
+        "Blue": ['"Blue"', '"Teal"', '"Cyan"', '"Navy"'],
+        "Purple": ['"Purple"', '"Violet"', '"Lavender"', '"Pink"'],
+        "Pink": ['"Pink"', '"Purple"', '"Red"', '"Cream_(colour)"'],
+        "Brown": ['"Brown"', '"Red"', '"Orange"', '"Beige"'],
+        "White": ['"White"', '"Silver"', '"Grey"', '"Cream_(colour)"'],
+        "Gray": ['"Gray"', '"Grey"', '"Silver"', '"Black"'],
+        "Black": ['"Black"', '"DarkGrey"', '"Gray"']
+    }
+    expanded_terms = []
+    for t in terms:
+        if t in COLOR_EXPANSION:
+            # Add all relatd colors
+            expanded_terms.extend(COLOR_EXPANSION[t])
+        else:
+            # Add the anatomy term
+            expanded_terms.append(f'"{t}"')
+
+    # Join for SPARQL
+    terms_string = " ".join(set(expanded_terms))
+
+    # weight conf
+    HIGH_VALUE_TERMS = {
+        "Wings", "BugWings", "DragonWings", "Feathers", "Flame", "Flower",
+        "Horn", "Vines", "Leaf", "Tentacles", "Shell", "Gem", "Claws",
+        "Tail", "Fins", "Antenna", "Mane", "Beak"
+    }
+
+    # Generic terms to downrank
+    LOW_VALUE_TERMS = {
+        "Head", "Body", "MainBody", "Eyes", "Eye", "Mouth", "Legs", "Arms", "Feet"
+    }
+
+    query = f"""
+    PREFIX : <http://example.org/pokemon-ontology#>
+    PREFIX pk: <https://pokemonkg.org/instance/pokemon#>
+    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+    SELECT ?pokemon (SUM(?weight) as ?score) (GROUP_CONCAT(DISTINCT ?term; separator=", ") as ?matched_features)
+    WHERE {{
+        VALUES ?term {{ {terms_string} }}
+
+        {{
+            # === STRATEGY A: ANATOMY (URI Match) ===
+            BIND(IRI(CONCAT("http://example.org/pokemon-ontology#", ?term)) AS ?targetClass)
+
+            {{ ?pokemonURI :hasAttribute ?part . }}
+            UNION
+            {{ GRAPH ?g1 {{ ?pokemonURI :hasAttribute ?part . }} }}
+
+            {{ ?part :structuralPartOf* ?targetClass . }}
+            UNION
+            {{ GRAPH ?g2 {{ ?part :structuralPartOf* ?targetClass . }} }}
+
+            # 5 pts for Unique, 1 pt for Generic, 3 for others
+            BIND(IF(?term IN ({', '.join(f'"{t}"' for t in HIGH_VALUE_TERMS)}), 5, 
+                 IF(?term IN ({', '.join(f'"{t}"' for t in LOW_VALUE_TERMS)}), 1, 3)) AS ?weight)
+        }}
+        UNION
+        {{
+            {{ ?pokemonURI :hasColour ?colorURI . }}
+            UNION
+            {{ GRAPH ?g3 {{ ?pokemonURI :hasColour ?colorURI . }} }}
+
+            BIND(REPLACE(STR(?colorURI), "^.*resource/", "") AS ?colorLabel)
+
+            # match the expanded xolors
+            FILTER(?colorLabel = ?term)
+
+            # Colors = 2 Points
+            BIND(2 AS ?weight)
+        }}
+
+        BIND(REPLACE(STR(?pokemonURI), "^.*[#/]", "") AS ?pokemon)
+    }}
+    GROUP BY ?pokemon
+    ORDER BY DESC(?score)
+    LIMIT 12
+    """
+
+    print(f"Executing visual query with terms: {terms_string}")
+    return execute_custom_sparql(query)
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 try:
@@ -47,7 +172,7 @@ def show_search_dashboard():
     st.title("🔍 Semantic Search")
     st.markdown("Explore the Knowledge Graph using standard filters or natural language.")
 
-    tab_manual, tab_ai = st.tabs(["🎛️ Standard Filters", "💬 AI Search"])
+    tab_manual, tab_ai, tab_vision = st.tabs(["🎛️ Standard Filters", "💬 AI Search", "📷 Visual Search"])
 
     # manual filters
     with tab_manual:
@@ -147,6 +272,43 @@ def show_search_dashboard():
         if st.session_state.ai_search_df is not None:
             st.divider()
             render_results_grid(st.session_state.ai_search_df, key_suffix="ai")
+
+    with tab_vision:
+        st.markdown("#### 📸 Upload an Image")
+        st.caption("We will use Computer Vision to analyze the Pokémon and find similar matches in the Graph.")
+
+        if not VISION_AVAILABLE:
+            st.error("⚠️ Vision modules are missing. Please check requirements.")
+        else:
+            uploaded_file = st.file_uploader("Upload a Pokemon Image", type=["png", "jpg", "jpeg"])
+
+            if uploaded_file is not None:
+                col_preview, col_analysis = st.columns([1, 2])
+
+                with col_preview:
+                    st.image(uploaded_file, caption="Your Image", use_container_width=True)
+
+                with col_analysis:
+                    if st.button("🔍 Analyze & Search", type="primary"):
+                        with st.spinner("Running YOLOv8 & Color Analysis..."):
+                            terms, logs = process_image(uploaded_file)
+
+                            # Show logs
+                            with st.expander("Analysis Logs"):
+                                for l in logs: st.text(l)
+
+                            if terms:
+                                st.success(f"Features: {', '.join(terms)}")
+
+                                # RUN THE RANKED QUERY
+                                results = execute_visual_ranking_query(terms)
+                                st.session_state.ai_search_df = results
+
+                                if not results.empty:
+                                    st.divider()
+                                    render_results_grid(results, key_suffix="vis")
+                                else:
+                                    st.warning("No matches found in Graph.")
 
 
 def show_details_view():
@@ -310,15 +472,15 @@ def render_results_grid(df, key_suffix="default"):
                 st.markdown(f"##### **{name}**")
 
                 badges = []
-                if 'color' in first and first['color'] != "Unknown":
-                    badges.append(f"🎨 {first['color']}")
-                if 'type' in first and first['type']:
-                    badges.append(f"🔥 {first['type']}")
+                # if 'color' in first and first['color'] != "Unknown":
+                #     badges.append(f"🎨 {first['color']}")
+                # if 'type' in first and first['type']:
+                #     badges.append(f"{first['type']}")
 
-                if badges:
-                    st.caption(" • ".join(badges))
-                else:
-                    st.caption("No details")
+                # if badges:
+                #     st.caption(" • ".join(badges))
+                # else:
+                #     st.caption("No details")
 
 
                 unique_key = f"btn_{name}_{key_suffix}"
@@ -333,7 +495,7 @@ def show_comparison_view():
     st.markdown("Select two Pokémon to see their anatomical differences side-by-side.")
 
     #  Get List of all Pokemon for the dropdown
-    # (We can fetch this efficiently via SPARQL)
+    # We can fetch this efficiently via SPARQL
     if "all_pokemon_names" not in st.session_state:
         # Quick query to get all names
         df_all = get_gen1_data()

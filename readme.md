@@ -1,8 +1,6 @@
 # Semantic Pokédex - Setup & Running Instructions
 
-This project uses a **Hybrid Setup**:
-1.  **Database:** Runs in Docker (GraphDB).
-2.  **Application:** Runs locally on Python (Streamlit).
+This project is a **Semantic Web Application** that combines a Knowledge Graph (GraphDB) with Computer Vision (YOLO) to search for Pokémon.
 
 ---
 
@@ -14,7 +12,7 @@ This project uses a **Hybrid Setup**:
 
 ## 🚀 Step 1: Start the Database (Docker)
 
-1.  Open a terminal in the project root folder (where this README is located).
+1.  Open a terminal in the project root folder.
 2.  Start the GraphDB container:
     ```bash
     docker-compose up -d
@@ -25,7 +23,7 @@ This project uses a **Hybrid Setup**:
     * **Repository ID:** `pokemon-repo` (Must match this exact name).
     * Click **Create**.
     * Go to **Import** -> **Upload RDF Files**.
-    * Upload all files from the `data/rdf/` folder (Select both `.ttl` and `.nq` files).
+    * Upload all files from the `data/` folder (Select both `.ttl` and `.nq` files).
     * Click **Import**.
 
 ---
@@ -54,9 +52,21 @@ This project uses a **Hybrid Setup**:
 
 ---
 
-## 🌐 Access Points
+## 🌟 Features & Modules
 
-| Service | URL |
-| :--- | :--- |
-| **User Interface** | `http://localhost:8501` |
-| **Database Workbench** | `http://localhost:7200` |
+### 1. Semantic Search
+* **Location:** Home Page -> "Standard Filters" & "AI Search".
+* **Description:** Search the Knowledge Graph using natural language (e.g., *"I want dragon wings"*).
+
+### 2. 📊 Knowledge Statistics
+* **Location:** Sidebar / Stats Page.
+* **Description:** A dashboard that analyzes the inference capabilities of our Ontology.
+* **Metrics:** Calculates the **Inference Ratio** and counts **Characteristic Triples** to demonstrate the "Semantic Value" of the graph.
+
+### 3. 📷 Visual Search (Computer Vision)
+* **Location:** Home Page -> "Visual Search" Tab.
+* **Description:** Upload an image to detect features (e.g., "Wings", "Red") using **YOLOv8** and **HSV Color Detection**. The system bridges these detected tags to the Knowledge Graph to find similar Pokémon.
+* **🧪 Evaluation Note:** For the detailed testing, validation, and accuracy results of the Computer Vision models, please refer to the Jupyter Notebook:
+    > **`app/utils/visual/main.ipynb`** 
+
+---

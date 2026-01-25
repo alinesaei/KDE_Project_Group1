@@ -1,0 +1,49 @@
+names:
+  0: Head
+  1: Body
+  2: Arm
+  3: Finger
+  4: Leg
+  5: Feet
+  6: Eye
+  7: Mouth
+  8: Lip
+  9: Teeth
+  10: Fang
+  11: Tongue
+  12: Ear
+  13: Tail
+  14: Horn
+  15: Leaf
+  16: Vine
+  17: Flower
+  18: Mushroom
+  19: Flame
+  20: Flipper
+  21: Gem
+  22: Item
+  23: Body Shell
+  24: Body Roughness
+  25: Body Symbol
+  26: Beak
+  27: Talon
+  28: Flowing Crest
+  29: Static Crest
+  30: Feathered Wing
+  31: Antenna
+  32: Chrysalis
+  33: Pinser
+  34: Bug Wing
+  35: Fin
+  36: Dragon Wing
+  37: Claw
+  38: Mane
+  39: Hair
+  40: Whisker
+  41: Main Body
+  42: Hand
+
+path: .
+
+train: images/train
+val: images/val
