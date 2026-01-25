@@ -1,80 +1,84 @@
 import streamlit as st
 
-# 1. PAGE CONFIGURATION
+# config
 st.set_page_config(
     page_title="Semantic Pokédex | Group 1",
     page_icon="🔴",
-    layout="centered"  # "Centered" looks better for a landing page than "Wide"
+    layout="centered",
+    initial_sidebar_state="collapsed"
 )
 
-# 2. SESSION STATE (For the entry animation)
+# session state
 if "first_load" not in st.session_state:
     st.session_state.first_load = True
-    st.balloons()  # 🎉 Fun entry animation!
+    st.balloons()
     st.session_state.first_load = False
 
-# 3. HEADER & LOGO
-col_logo, col_title = st.columns([1, 2])
+col_logo, col_title = st.columns([1, 2.5])
 
 with col_logo:
-    # A high-quality transparent Pokemon logo
     st.image("https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pokémon_logo.svg",
              use_container_width=True)
 
 with col_title:
     st.title("Semantic Pokédex")
-    st.subheader("Knowledge Engineering Project")
+    st.markdown("##### **Knowledge and Data Engineering Project**")
     st.caption("Group 1 • Utrecht University")
 
 st.divider()
 
-# 4. INTRO ANIMATION (A classic Pokedex GIF)
-# We put this in a container to make it look like a "Hero Section"
 with st.container(border=True):
-    col_anim, col_desc = st.columns([1, 2], gap="medium")
+    col_anim, col_desc = st.columns([1.2, 2], gap="medium")
 
     with col_anim:
-        # A clean GIF of a Pokedex
         st.image(
             "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3MXI2anFtdDF3aTU4MGU2bHR2c2pmN3J0ejR6MGJwMzViNmkweHU0aiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/xx0JzzsBXzcMK542tx/giphy.gif",
-            use_container_width=True)
+            use_container_width=True
+        )
 
     with col_desc:
         st.markdown("### 🚀 Welcome!")
-        # st.write("""
-        # This isn't just a database—it's a **Knowledge Graph**.
-        #
-        # Unlike a standard wiki, this app understands **Anatomy**.
-        # If you search for *"Wings"*, it knows to look for *Dragon Wings*, *Bug Wings*, and *Feathered Wings* automatically.
-        # """)
 
-        # Call to Action Button
-        if st.button("🔍 Start Searching Now", type="primary", use_container_width=True):
+        if st.button("🔍 Enter the search page ->", type="primary", use_container_width=True):
             st.switch_page("pages/search.py")
 
-# 5. TECHNICAL ARCHITECTURE (The "Student Project" part)
-st.subheader("🛠️ Architecture")
+
+st.subheader("🛠️ System Architecture")
 
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.info("**Ontology (TBox)**")
-    st.markdown("Modeled in **Protégé**. Defines the hierarchy (e.g., `Teeth` $\\subseteq$ `Mouth`).")
+    st.info("**1. Ontology**", icon="🧠")
+    st.markdown("Defined in **Protégé**. Models the hierarchy (e.g., `Wings` $\\sqsubseteq$ `BodyPart`).")
 
 with col2:
-    st.success("**Data (ABox)**")
-    st.markdown("Stored in **GraphDB**. Contains the instances (e.g., `Charizard` has `DragonWings`).")
+    st.success("**2. Data**", icon="🗄️")
+    st.markdown("Stored in **GraphDB**. Contains heterogeneous data (Anatomy + Generation 1 stats).")
 
 with col3:
-    st.warning("**Application**")
-    st.markdown("Built with **Streamlit** & **SPARQL**. Handles the logic and visualization.")
+    st.warning("**3. Interface**", icon="💻")
+    st.markdown("Built with **Streamlit**. Used SPARQL queries and Visual Models.")
 
 st.divider()
 
-# 6. TEAM MEMBERS
-st.markdown("### 👥 The Team")
+st.subheader("👥 The Team")
 
-#
-# for i, member in enumerate(members):
-#     with team_cols[i % 4]:
-#         st.caption(f"👤 {member}")
+team_cols = st.columns(2)
+
+with team_cols[0]:
+    st.markdown("**Ali Nesaei**")
+
+
+    st.markdown("**Andrea Suklan**")
+
+
+    st.markdown("**Shallwin Silvania**")
+
+
+with team_cols[1]:
+    st.markdown("**Jelke de Haan**")
+
+    st.markdown("**Samuel Sorour**")
+
+
+st.divider()

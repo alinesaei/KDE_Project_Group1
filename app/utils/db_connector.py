@@ -15,9 +15,8 @@ PREFIXES = """
 
 def get_gen1_data(body_part="Any", color="Any", poke_type="Any", habitat="Any"):
     """
-    HIGH-PERFORMANCE VERSION:
-    1. FILTER FIRST: Reduces the search space from thousands to ~5 items immediately.
-    2. DIRECT LOOKUP: Constructs URIs instead of searching (O(1) speed vs O(N)).
+    1. FILTER FIRST
+    2. DIRECT lookup: Constructs URIs instead of searching (O(1) speed vs O(N))
     """
     sparql = SPARQLWrapper(ENDPOINT_URL)
     sparql.setReturnFormat(JSON)
@@ -25,27 +24,23 @@ def get_gen1_data(body_part="Any", color="Any", poke_type="Any", habitat="Any"):
     query = PREFIXES + """
     SELECT DISTINCT ?name ?img ?color
     WHERE {
-        # =======================================================
-        # STEP 1: START WITH THE SMALLEST LIST (Gen 1 Anchor)
-        # =======================================================
+        # start with gen 1 list
         GRAPH ?gGen {
             <https://pokemonkg.org/instance/generation/i> poke:featuresSpecies ?pokemonB .
         }
 
-        # =======================================================
-        # STEP 2: APPLY FILTERS IMMEDIATELY (Pruning)
-        # =======================================================
-        # By filtering here, we stop processing irrelevant Pokemon immediately.
+        # apply filters immediatly (pruning)
+        # By filtering here, we stop processing irrelevant Pokemon immediately
         """
 
-    # --- TYPE FILTER ---
+    # type filter
     if poke_type and poke_type != "Any":
         query += f"""
         GRAPH ?gType {{ ?pokemonB poke:hasType ?typeURI . }}
         FILTER(CONTAINS(LCASE(STR(?typeURI)), "{poke_type.strip().lower()}"))
         """
 
-    # --- HABITAT FILTER ---
+    # habitat filter
     if habitat and habitat != "Any":
         safe_hab = habitat.replace(" ", "")
         query += f"""
@@ -54,19 +49,13 @@ def get_gen1_data(body_part="Any", color="Any", poke_type="Any", habitat="Any"):
         """
 
     query += """
-        # =======================================================
-        # STEP 3: PREDICT THE ANATOMY URI (The Speed Hack)
-        # =======================================================
-        # Instead of searching the whole DB, we convert the URI directly.
+        # Instead of searching the whole DB, we convert the URI directly
         # N-Quads:  .../instance/pokemon/charizard
         # Anatomy:  .../instance/pokemon#charizard
 
         BIND(IRI(REPLACE(STR(?pokemonB), "/pokemon/", "/pokemon#")) AS ?pokemonA)
 
-        # =======================================================
-        # STEP 4: DIRECT FETCH (O(1) Complexity)
-        # =======================================================
-        # Now we only look up anatomy for the FEW matching Pokemon.
+        # Now we only look up anatomy for the few matching Pokemo
         {
             ?pokemonA :hasAttribute ?part .
             ?part rdfs:label ?partName .
@@ -81,15 +70,12 @@ def get_gen1_data(body_part="Any", color="Any", poke_type="Any", habitat="Any"):
             }
         }
 
-        # =======================================================
-        # STEP 5: FORMATTING
-        # =======================================================
+        # formatting
         BIND(LCASE(REPLACE(STR(?pokemonB), "^.*[#/]", "")) AS ?slug)
         BIND(CONCAT(UCASE(SUBSTR(?slug, 1, 1)), SUBSTR(?slug, 2)) AS ?name)
         BIND(CONCAT("https://img.pokemondb.net/artwork/", ?slug, ".jpg") AS ?img)
         BIND(REPLACE(STR(?colorURI), "^.*resource/", "") AS ?color)
 
-        # --- ANATOMY FILTERS (Applied to the final few) ---
         """
     if body_part and body_part != "Any":
         query += f"""
@@ -140,17 +126,22 @@ def get_filter_options(category):
 
 
 def get_pokemon_details(pokemon_name):
+    """
+    Fetches details + MOVES.
+    ROBUST FIX: Handles 'Chain' relationships (Pokemon -> LearningNode -> Move).
+    """
     sparql = SPARQLWrapper(ENDPOINT_URL)
     sparql.setReturnFormat(JSON)
-    # Search EVERYWHERE for details
-    query = PREFIXES + f"""
+
+    # 1. ANATOMY (Standard Universal Search)
+    query_anatomy = PREFIXES + f"""
     SELECT DISTINCT ?partName WHERE {{
         {{ pk:{pokemon_name.lower()} :hasAttribute ?part . ?part rdfs:label ?partName . }}
         UNION
         {{ GRAPH ?g {{ pk:{pokemon_name.lower()} :hasAttribute ?part . ?part rdfs:label ?partName . }} }}
     }}
     """
-    sparql.setQuery(query)
+    sparql.setQuery(query_anatomy)
     features = []
     try:
         results = sparql.query().convert()
@@ -158,17 +149,54 @@ def get_pokemon_details(pokemon_name):
     except:
         pass
 
+    # 2. MOVES (The Chain Search)
+    query_moves = PREFIXES + f"""
+    SELECT DISTINCT ?cleanName WHERE {{
+        GRAPH ?g {{
+            # We look for the move URI at the end of a chain
+            {{
+                # PATTERN A: Direct Link (Pokemon -> Move)
+                ?pokemon poke:learnsMove ?moveURI .
+            }}
+            UNION
+            {{
+                # PATTERN B: Indirect Chain (Pokemon -> LearningNode -> Move)
+                # This matches the structure in your screenshot!
+                ?pokemon ?link ?intermediateNode .
+                ?intermediateNode poke:learnsMove ?moveURI .
+            }}
+
+            # 1. Match the Pokemon Name (Fuzzy Match on the START of the chain)
+            # This finds ".../charizard" regardless of prefix
+            FILTER(CONTAINS(LCASE(STR(?pokemon)), "/{pokemon_name.lower()}"))
+
+            # 2. Get the Move Name
+            OPTIONAL {{ ?moveURI rdfs:label ?label . FILTER(lang(?label) = "en") }}
+            BIND(REPLACE(STR(?moveURI), "^.*move/", "") AS ?slug)
+            BIND(COALESCE(?label, ?slug) AS ?rawName)
+
+            # 3. Clean formatting
+            BIND(CONCAT(UCASE(SUBSTR(?rawName, 1, 1)), SUBSTR(?rawName, 2)) AS ?cleanName)
+        }}
+    }} LIMIT 25
+    """
+    sparql.setQuery(query_moves)
+    moves = []
+    try:
+        results = sparql.query().convert()
+        moves = [r["cleanName"]["value"] for r in results["results"]["bindings"]]
+    except:
+        pass
+
     return {
         "name": pokemon_name,
         "img": f"https://img.pokemondb.net/artwork/{pokemon_name.lower()}.jpg",
         "features": features,
+        "moves": moves,  # <--- List of moves
         "stats": {"HP": random.randint(50, 100), "Attack": random.randint(50, 100), "Defense": random.randint(50, 100)},
         "relations": [{"source": pokemon_name, "target": f, "label": "hasAttribute"} for f in features]
     }
 
-
-# ... (Include get_ontology_options, get_ontology_hierarchy, get_feature_counts, etc. from your previous file) ...
-# Just make sure to define them or leave them if they are already there.
 def get_ontology_options():
     sparql = SPARQLWrapper(ENDPOINT_URL)
     sparql.setReturnFormat(JSON)
@@ -269,7 +297,7 @@ def execute_custom_sparql(query_string):
             data.append({
                 "name": name_val.capitalize(),
                 "img": f"https://img.pokemondb.net/artwork/{name_val.lower()}.jpg",
-                "color": "Unknown"  # custom queries might not return color
+                "color": "Unknown"
             })
 
         return pd.DataFrame(data)
@@ -281,7 +309,7 @@ def execute_custom_sparql(query_string):
 
 def get_multiple_pokemon_details(names_list):
     """
-    Fetches details for a list of Pokemon names.
+    Fetch details for a list of Pokemon names
     """
     data = []
     for name in names_list:

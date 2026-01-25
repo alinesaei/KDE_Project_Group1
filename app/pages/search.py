@@ -30,7 +30,6 @@ except ImportError as e:
 st.set_page_config(page_title="Search Engine", page_icon="🔍", layout="wide")
 
 # --- STATE MANAGEMENT
-#Which Pokemon are we looking at?
 if "selected_pokemon_name" not in st.session_state:
     st.session_state.selected_pokemon_name = None
 
@@ -44,17 +43,13 @@ if "ont_opts" not in st.session_state:
 
 
 # search dashboard
-# ==========================================
-# 🔎 VIEW 1: SEARCH DASHBOARD (The Main UI)
-# ==========================================
 def show_search_dashboard():
     st.title("🔍 Semantic Search")
     st.markdown("Explore the Knowledge Graph using standard filters or natural language.")
 
-    # Top Tabs: Clear separation between modes
     tab_manual, tab_ai = st.tabs(["🎛️ Standard Filters", "💬 AI Search"])
 
-    # --- TAB A: MANUAL FILTERS ---
+    # manual filters
     with tab_manual:
         col_filters, col_results = st.columns([1, 3], gap="large")
 
@@ -72,14 +67,14 @@ def show_search_dashboard():
 
                 st.divider()
 
-                # 2. Elemental Type Filter (NEW)
+                # elemental Type Filter
                 if "type_opts" not in st.session_state:
                     st.session_state.type_opts = get_filter_options("Type")
 
                 st.markdown("**🔥 Elemental Type**")
                 sel_type = st.selectbox("Type", ["Any"] + st.session_state.type_opts)
 
-                # 3. Habitat Filter (NEW)
+                # Habitat Filter
                 if "hab_opts" not in st.session_state:
                     st.session_state.hab_opts = get_filter_options("Habitat")
 
@@ -88,13 +83,12 @@ def show_search_dashboard():
 
                 st.divider()
 
-                # 4. Color Filter
+                # Color Filter
                 st.markdown("**🎨 Appearance**")
                 sel_color = st.selectbox("Color",
                                          ["Any", "Red", "Blue", "Green", "Yellow", "Purple", "Brown", "Pink", "Black",
                                           "White"])
 
-                # SUBMIT BUTTON
                 submitted = st.form_submit_button("🚀 Apply Filters", type="primary")
 
         with col_results:
@@ -107,7 +101,7 @@ def show_search_dashboard():
             )
             render_results_grid(df, key_suffix="manual")
 
-    # --- TAB B: AI SEARCH (Persistence Logic) ---
+    # ai ab
     with tab_ai:
         st.markdown("#### 🧠 Ask the Ontology")
 
@@ -118,19 +112,18 @@ def show_search_dashboard():
                                            placeholder="Example: I want a Fire dragon that lives in mountains...")
                 run_ai = st.form_submit_button("✨ Generate SPARQL & Search")
 
-        # LOGIC: Run Search ONLY if button clicked
         if run_ai and user_query:
             if not NLP_AVAILABLE:
                 st.error("NLP Module not loaded.")
             else:
                 with st.spinner("Analyzing semantics..."):
-                    # 1. Reset previous results
+                    # Reset previous results
                     st.session_state.ai_search_df = None
 
-                    # 2. Extract Terms
+                    # Extract Terms
                     uris, logs = extract_ontology_terms(user_query)
 
-                    # 3. Debug Info
+                    # Debug Info
                     with col_debug:
                         with st.expander("🤖 Logic Trace", expanded=False):
                             for log in logs:
@@ -140,7 +133,7 @@ def show_search_dashboard():
 
                     if uris:
                         sparql_query = generate_sparql(uris)
-                        # 4. Execute & SAVE to Session State
+                        # Execute & SAVE to Session State
                         results = execute_custom_sparql(sparql_query)
                         st.session_state.ai_search_df = results
 
@@ -150,7 +143,7 @@ def show_search_dashboard():
                     else:
                         st.warning("I couldn't understand the features in your request.")
 
-        # DISPLAY: Render results from State
+        # Render results from State
         if st.session_state.ai_search_df is not None:
             st.divider()
             render_results_grid(st.session_state.ai_search_df, key_suffix="ai")
@@ -160,7 +153,6 @@ def show_details_view():
     name = st.session_state.selected_pokemon_name
     poke = get_pokemon_details(name)  # Fetch real details
 
-    # Top Navigation Bar
     col_back, col_title = st.columns([1, 5])
     with col_back:
         if st.button("⬅️ Back to Search"):
@@ -171,7 +163,6 @@ def show_details_view():
 
     st.divider()
 
-    # Main layout
     col_img, col_graph, col_stats = st.columns([1, 2, 1])
 
     with col_img:
@@ -184,6 +175,14 @@ def show_details_view():
             st.markdown(" ".join([f"`{f}`" for f in poke['features']]))
         else:
             st.write("No attributes found.")
+
+        st.divider()
+        st.markdown("⚔️ **Top Moves**")
+        if poke.get('moves'):
+            # bullet list or tags
+            st.write(", ".join(poke['moves']))
+        else:
+            st.caption("No move data available.")
 
     with col_graph:
         st.markdown("#### 🕸️ Knowledge Graph")
@@ -212,10 +211,9 @@ def show_details_view():
 # analytics
 def show_analytics_view():
     st.title("📊 Knowledge Graph Analytics")
-    st.markdown("Deep dive into the structural relationships of the Generation 1 dataset.")
+    st.markdown("Structural relationships of the Generation 1 dataset.")
 
-    # --- 1. KEY METRICS (New!) ---
-    # A "Heads Up Display" for the database
+    # key metrics
     stats = get_graph_stats()
     kpi1, kpi2, kpi3 = st.columns(3)
 
@@ -230,7 +228,7 @@ def show_analytics_view():
 
     col1, col2 = st.columns(2)
 
-    # --- 2. ONTOLOGY STRUCTURE ---
+    #ONTOLOGY STRUCTURE
     with col1:
         st.subheader("🧬 Anatomy Hierarchy")
         st.caption("How body parts are organized (T-Box).")
@@ -248,7 +246,7 @@ def show_analytics_view():
         else:
             st.warning("No ontology data found.")
 
-    # --- 3. FEATURE DISTRIBUTION ---
+    #FEATURE DISTRIBUTION
     with col2:
         st.subheader("📈 Common Features")
         st.caption("Which attributes appear most frequently?")
@@ -269,7 +267,7 @@ def show_analytics_view():
 
     st.divider()
 
-    # --- 4. CORRELATION HEATMAP (New!) ---
+    # correlation heatmap
     st.subheader("🔗 Attribute Correlations")
     st.caption("If a Pokemon has **Attribute A**, does it also have **Attribute B**?")
 
@@ -290,53 +288,58 @@ def show_analytics_view():
         st.info("Not enough data to calculate correlations.")
 # RESULT GRID RENDERER
 def render_results_grid(df, key_suffix="default"):
-    """
-    Renders a grid of Pokemon cards.
-    Args:
-        key_suffix: A unique string (e.g., 'ai', 'manual') to prevent duplicate button ID errors.
-    """
+
     if df.empty:
         st.info("No Pokemon found matching these criteria.")
         return
 
     st.success(f"Found {len(df['name'].unique())} Pokemon")
 
-    cols = st.columns(4)
+    cols = st.columns(5)
     grouped = df.groupby("name")
 
     for i, (name, group) in enumerate(grouped):
         first = group.iloc[0]
-        with cols[i % 4]:
+
+        with cols[i % 5]:
+
             with st.container(border=True):
+
                 st.image(first['img'], use_container_width=True)
-                st.markdown(f"**{name}**")
 
+                st.markdown(f"##### **{name}**")
+
+                badges = []
                 if 'color' in first and first['color'] != "Unknown":
-                    st.caption(f"🎨 {first['color']}")
+                    badges.append(f"🎨 {first['color']}")
+                if 'type' in first and first['type']:
+                    badges.append(f"🔥 {first['type']}")
 
-                # key generation just to prevent crashingg
+                if badges:
+                    st.caption(" • ".join(badges))
+                else:
+                    st.caption("No details")
+
+
                 unique_key = f"btn_{name}_{key_suffix}"
-
-                if st.button("Details ➡️", key=unique_key, use_container_width=True):
+                if st.button("Details", key=unique_key, use_container_width=True):
                     st.session_state.selected_pokemon_name = name
                     st.rerun()
 
 
-# ==========================================
-# ⚖️ VIEW 4: COMPARISON PAGE
-# ==========================================
+# view for COMPARISON PAGE
 def show_comparison_view():
     st.title("⚖️ Compare Pokémon")
     st.markdown("Select two Pokémon to see their anatomical differences side-by-side.")
 
-    # 1. Get List of all Pokemon for the dropdown
+    #  Get List of all Pokemon for the dropdown
     # (We can fetch this efficiently via SPARQL)
     if "all_pokemon_names" not in st.session_state:
         # Quick query to get all names
         df_all = get_gen1_data()
         st.session_state.all_pokemon_names = sorted(df_all['name'].unique().tolist())
 
-    # 2. Selection Inputs
+    # selectioon inputs
     col_sel1, col_sel2 = st.columns(2)
     with col_sel1:
         p1 = st.selectbox("Select Pokémon A", st.session_state.all_pokemon_names, index=0)
@@ -353,7 +356,7 @@ def show_comparison_view():
             data = get_multiple_pokemon_details([p1, p2])
             d1, d2 = data[0], data[1]
 
-            # --- VISUAL COMPARISON ---
+            # visual comparison
             col_a, col_mid, col_b = st.columns([2, 1, 2])
 
             # Left: Pokemon A
@@ -386,7 +389,7 @@ def show_comparison_view():
                 for f in unique_b:
                     st.markdown(f"✅ **{f}**")
 
-            # --- RADAR CHART OVERLAY ---
+            # radar chart overlay
             st.divider()
             st.subheader("📊 Stat Comparison")
 
@@ -397,20 +400,17 @@ def show_comparison_view():
                 d2['name']: list(d2['stats'].values())
             })
 
-            # Melt for Plotly
+            # Melt for plotly
             df_melt = df_stats.melt(id_vars=['Stat'], var_name='Pokemon', value_name='Value')
 
             fig = px.line_polar(df_melt, r='Value', theta='Stat', color='Pokemon', line_close=True)
             fig.update_traces(fill='toself')
             st.plotly_chart(fig, use_container_width=True)
 
-# if Pokemon is selected, show its details (Overwrites everything else)
 if st.session_state.selected_pokemon_name:
     show_details_view()
 
-# otherwise, show the menu
 else:
-    # Cleaner Menu at the top
     selected_page = option_menu(
         menu_title=None,
         options=["Search", "Analytics", "Compare"],
